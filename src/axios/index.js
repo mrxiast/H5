@@ -3,10 +3,7 @@ import Cookies from "js-cookie";
 // import { Message } from "element-ui";
 import { Toast } from "vant";
 import { setStore, getStore } from "@/utils/storage";
-const baseURL =
-  process.env.NODE_ENV === "production"
-    ? "http://www.lovetxt.xyz"
-    : "192.168.0.1";
+const baseURL = "192.168.0.1";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 export const service = axios.create({
   baseURL: baseURL,

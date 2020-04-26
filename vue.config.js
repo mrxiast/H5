@@ -28,17 +28,17 @@ module.exports = {
 
     // 压缩图片
     // 需要 npm i -D image-webpack-loader
-    config.module
-      .rule("images")
-      .use("image-webpack-loader")
-      .loader("image-webpack-loader")
-      .options({
-        mozjpeg: { progressive: true, quality: 65 },
-        optipng: { enabled: false },
-        pngquant: { quality: [0.65, 0.9], speed: 4 },
-        gifsicle: { interlaced: false },
-        webp: { quality: 75 }
-      });
+    // config.module
+    //   .rule("images")
+    //   .use("image-webpack-loader")
+    //   .loader("image-webpack-loader")
+    //   .options({
+    //     mozjpeg: { progressive: true, quality: 65 },
+    //     optipng: { enabled: false },
+    //     pngquant: { quality: [0.65, 0.9], speed: 4 },
+    //     gifsicle: { interlaced: false },
+    //     webp: { quality: 75 }
+    //   });
   },
   configureWebpack: config => {
     // 开启 gzip 压缩
@@ -67,7 +67,7 @@ module.exports = {
         plugins: [
           // 把px单位换算成rem单位
           require("postcss-pxtorem")({
-            rootValue: 75, // 换算的基数(设计图750的根字体为32)
+            rootValue: 37.5, // 换算的基数(设计图750的根字体为32)
             selectorBlackList: [".van-"], // 要忽略的选择器并保留为px。
             propList: ["*"], // 可以从px更改为rem的属性。
             minPixelValue: 2 // 设置要替换的最小像素值。

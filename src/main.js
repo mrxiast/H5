@@ -7,6 +7,7 @@ import { Button, Toast } from "vant";
 Vue.use(Button).use(Toast);
 
 import "vant/lib/index.css";
+import "lib-flexible";
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   if (!store.state.UserToken) {

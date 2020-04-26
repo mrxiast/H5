@@ -4,8 +4,6 @@ import router from "@/router/index";
 import adminRoutes from "./adminRoutes";
 import { fetchPermission } from "./api";
 
-Vue.use(Vuex);
-
 const state = {
   get UserToken() {
     return localStorage.getItem("token");
@@ -171,11 +169,11 @@ const DynamicRoutes = [
   }
 ];
 
+Vue.use(Vuex);
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+  state,
+  mutations,
+  actions
 });
 
 // //路由拼接的函数
