@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-// import { Message } from "element-ui";
 import { Toast } from "vant";
 import { setStore, getStore } from "@/utils/storage";
 const baseURL = "192.168.0.1";
@@ -83,7 +82,7 @@ export const postRequest = (url, params) => {
     url: url,
     data: params,
     transformRequest: [
-      function(data) {
+      function (data) {
         let ret = "";
         for (let it in data) {
           ret +=
@@ -152,7 +151,7 @@ export const patchRequest = (url, params) => {
     url: url,
     data: params,
     transformRequest: [
-      function(data) {
+      function (data) {
         let ret = "";
         for (let it in data) {
           ret +=
@@ -198,7 +197,7 @@ export const postRequestJson = (url, params) => {
     url: url,
     data: params,
     transformRequest: [
-      function(data) {
+      function (data) {
         let ret = "";
         for (let it in data) {
           ret +=

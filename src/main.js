@@ -3,8 +3,28 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import { Button, Toast } from "vant";
-Vue.use(Button).use(Toast);
+import {
+  Button,
+  Toast,
+  Form,
+  Field,
+  Col,
+  Row,
+  NavBar,
+  Tabbar,
+  TabbarItem,
+  Icon
+} from "vant";
+Vue.use(Button)
+  .use(Toast)
+  .use(Form)
+  .use(Field)
+  .use(Col)
+  .use(Row)
+  .use(NavBar)
+  .use(Tabbar)
+  .use(TabbarItem)
+  .use(Icon)
 
 import "vant/lib/index.css";
 import "lib-flexible";
@@ -36,7 +56,6 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from, next) => {
   var routerList = to.matched;
-  store.commit("setCrumbList", routerList);
   store.commit("SET_CURRENT_MENU", to.name);
 });
 

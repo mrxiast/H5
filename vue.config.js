@@ -28,17 +28,17 @@ module.exports = {
 
     // 压缩图片
     // 需要 npm i -D image-webpack-loader
-    // config.module
-    //   .rule("images")
-    //   .use("image-webpack-loader")
-    //   .loader("image-webpack-loader")
-    //   .options({
-    //     mozjpeg: { progressive: true, quality: 65 },
-    //     optipng: { enabled: false },
-    //     pngquant: { quality: [0.65, 0.9], speed: 4 },
-    //     gifsicle: { interlaced: false },
-    //     webp: { quality: 75 }
-    //   });
+    config.module
+      .rule("images")
+      .use("image-webpack-loader")
+      .loader("image-webpack-loader")
+      .options({
+        mozjpeg: { progressive: true, quality: 65 },
+        optipng: { enabled: false },
+        pngquant: { quality: [0.65, 0.9], speed: 4 },
+        gifsicle: { interlaced: false },
+        webp: { quality: 75 }
+      });
   },
   configureWebpack: config => {
     // 开启 gzip 压缩
@@ -90,27 +90,7 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true
-    }, // 错误、警告在页面弹出
-    proxy: {
-      "/api": {
-        target: "http://172.11.11.11:7071",
-        changeOrigin: true,
-        // ws: true,//websocket支持
-        secure: false,
-        pathRewrite: {
-          "^/api": "/"
-        }
-      },
-      "/api2": {
-        target: "http://172.12.12.12:2018",
-        changeOrigin: true,
-        //ws: true,//websocket支持
-        secure: false,
-        pathRewrite: {
-          "^/api2": "/"
-        }
-      }
-    }
+    } // 错误、警告在页面弹出
   },
   // 第三方插件配置
   pluginOptions: {}

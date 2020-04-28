@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import login from "@views/login/index";
+import layout from "@views/layout/index"
 const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location, onResolve, onReject) {
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject)
     return originalPush.call(this, location, onResolve, onReject);
   return originalPush.call(this, location).catch(err => err);
@@ -12,15 +12,33 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "login",
-    component: login
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import("../views/login/index.vue"),
+    mate: {
+      name: '登录'
+    }
+  }, {
+    path: "/register",
+    name: "register",
+    component: () => import("../views/register/index.vue"),
+    mate: {
+      name: '注册'
+    }
+  }, {
+    path: "/403",
+    name: "403",
+    component: () => import("../views/errorPage/403.vue"),
+    mate: {
+      name: '无权限'
+    }
+  }, {
+    path: "/404",
+    name: "404",
+    component: () => import("../views/errorPage/404.vue"),
+    mate: {
+      name: '页面丢失'
+    }
   }
 ];
 
