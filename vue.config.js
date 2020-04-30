@@ -90,7 +90,18 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true
-    } // 错误、警告在页面弹出
+    },// 错误、警告在页面弹出
+    proxy: { //配置多个跨域
+      "/api": {
+        target: "http://127.0.0.1",
+        changeOrigin: true,
+        ws: true,//websocket支持
+        secure: false,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    }
   },
   // 第三方插件配置
   pluginOptions: {}

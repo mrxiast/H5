@@ -19,6 +19,14 @@ const routes = [
       name: '登录'
     }
   }, {
+
+    path: "/reset-password",
+    name: "reset-password",
+    component: () => import("../views/reset-password/index.vue"),
+    mate: {
+      name: '重置密码'
+    }
+  }, {
     path: "/register",
     name: "register",
     component: () => import("../views/register/index.vue"),
