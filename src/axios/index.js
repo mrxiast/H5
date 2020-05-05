@@ -1,9 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Toast } from "vant";
+import { Notify } from "vant";
 import { setStore, getStore } from "@/utils/storage";
 const baseURL = "http://127.0.0.1:3000";
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.Authorization = 'application/x-www-form-urlencoded';
 export const service = axios.create({
   baseURL: baseURL,
   timeout: 60000
@@ -11,6 +11,11 @@ export const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    let token = Cookies.get("token");
+        if (token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+          config.headers.token = `${token}`;
+          config.headers.Authorization =  `${token}`;
+        }
     return config;
   },
   err => {
@@ -23,45 +28,49 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const data = response.data;
-    if (
-      response.headers.token &&
-      response.headers.token != "" &&
-      response.headers.token != null
-    ) {
-      setStore("Authorization", response.headers.token);
-    }
+    // if (
+    //   response.headers.token &&
+    //   response.headers.token != "" &&
+    //   response.headers.token != null
+    // ) {
+    //   setStore("Authorization", response.headers.token);
+    // }
 
     // 根据返回的code值来做不同的处理(和后端约定)
     switch (data.code) {
+      case 400:
+        // // 未登录 清除已登录状态
+        Notify({ type: 'danger', message: data.msg || '参数错误' })
+        break;
       case 401:
         // // 未登录 清除已登录状态
-        Toast.fail(data.message);
+        Notify({ type: 'danger', message: data.msg })
         Cookies.set("userInfo", "");
-        setStore("Authorization", "");
-        this.$router.push("/login");
+        Cookies.set("token", "");
+        this.$router.replace("/login");
         break;
       case 403:
         // 没有权限
-        if (data.message !== null) {
-          Toast.fail(data.message);
+        if (data.msg !== null) {
+          Notify({ type: 'danger', message: data.msg })
         } else {
-          Toast.failr("未知错误");
+          Notify({ type: 'danger', message: "未知错误"})
         }
         break;
       case 500:
         // 错误
-        if (data.message !== null) {
-          Toast.fail(data.message);
+        if (data.msg !== null) {
+          Notify({ type: 'danger', message: data.msg })
         } else {
-          Toast.fail("未知错误");
+          Notify({ type: 'danger', message: "未知错误"})
         }
         break;
       case 100:
         // 错误
-        if (data.message !== null) {
-          Toast.fail(data.message);
+        if (data.msg !== null) {
+          Notify({ type: 'danger', message: data.msg })
         } else {
-          Toast.fail("未知错误");
+          Notify({ type: 'danger', message: "未知错误"})
         }
         break;
       default:

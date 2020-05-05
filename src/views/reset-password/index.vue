@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import {resetPasswordApi} from './api'
+import { Notify } from "vant";
 export default {
   data() {
     return {
@@ -88,6 +90,19 @@ export default {
         this.$toast("两次密码不一致");
         return;
       }
+      let data = {
+        username:this.username,
+        code:this.code,
+        newpassword1:this.newpassword1,
+        newpassword2:this.newpassword2,
+        phone:this.phone
+      }
+      resetPasswordApi(data).then(res=>{
+        if(res.code === 200){
+          Notify({type:"success",message:res.msg})
+          this.$router.push('/login')
+        }
+      })
     },
     getCode() {
       let that = this;

@@ -129,7 +129,7 @@ export default {
       }, 1000);
       getCodeApi({ phone: this.phone }).then(res => {
         if (res.code === 200) {
-          this.code = res.result.code;
+          this.code = res.phoneCode;
         }
       });
     }

@@ -1,0 +1,113 @@
+.flow-box {
+  background-color: #ffffff;
+  width: 375px;
+  height: 100%;
+}
+.flow-box .type-box {
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  font-size: 14px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  border-bottom: 0.5px solid #dddddd;
+  padding: 0 5px;
+}
+.type-box .type-list {
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+.type-list .type-item {
+  display: inline-block;
+  padding: 0 12.5px;
+  height: 40px;
+  text-align: center;
+}
+.type-list .type-item .text {
+  line-height: 37.5px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+.type-list .type-item .line {
+  background-color: #ffffff;
+}
+.type-list .type-item-on .text {
+  font-size: 16px;
+  color: #f0142d;
+}
+.type-list .type-item-on .line {
+  width: 19px;
+  height: 2px;
+  margin: 0 auto;
+  background-color: #f0142d;
+  border-radius: 2px;
+}
+/* 隐藏滚动条 */
+.type-list::webkit-scrollbar {
+  dispplay: none;
+}
+/* 列表数据样式 */
+@keyframes data-item-ani {
+  0% {
+      transform: scale(0.5);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+.flow-box .data-list-box {
+  position: relative;
+}
+.data-list-box .data-item {
+  height: auto;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  background-color: #ffffff;
+  left: -1000px;
+  animation: data-item-ani 0.4s;
+  transition: left 0.6s, top 0.6s;
+  transition-delay: 0.1s;
+}
+.data-item .data-cover {
+  display: block;
+}
+.data-item .data-name {
+  font-size: 14px;
+  padding: 5px 10px;
+  text-align: left;
+}
+.title {
+  font-size: 14px;
+  margin: 5px 0;
+}
+.tags {
+  span {
+      background-color: #dcebe6;
+      margin: 5px;
+  }
+}
+.price {
+  text-align: left;
+  padding-left: 15px;
+  margin: 5px;
+  .now-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #157658;
+  }
+  .pre-price {
+      font-size: 12px;
+      color: #333;
+      margin-left: 20px;
+      text-decoration: line-through;
+  }
+}
+.explain {
+  font-size: 12px;
+  color: #bbb;
+  padding: 0 5px;
+  padding-bottom: 10px;
+}

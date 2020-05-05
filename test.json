@@ -1,0 +1,21 @@
+{
+  "code":'000000',
+  "mas":'好了',
+  "data": [
+    {
+      "id": 1,
+      "cover": "https://img.yzcdn.cn/vant/apple-1.jpg",
+      "sign":'哎呀呀'
+    },
+    {
+      "id": 2,
+      "cover": "https://img.yzcdn.cn/vant/apple-1.jpg",
+      "sign":'哎呀呀'
+    },
+    {
+      "id": 3,
+      "cover": "https://img.yzcdn.cn/vant/apple-1.jpg",
+      "sign":'哎呀呀'
+    }
+  ]
+}

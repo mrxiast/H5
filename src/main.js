@@ -2,6 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import Cookies from 'js-cookie'
+//添加ie兼容 性能可能没那么好可选用，也可删除删除需要在babel.config.js里面也要删除
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 import {
   Button,
@@ -13,7 +17,23 @@ import {
   NavBar,
   Tabbar,
   TabbarItem,
-  Icon
+  Icon,
+  Notify,
+  Dialog,
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Grid,
+  GridItem,
+  Image as VanImage,
+  PullRefresh,
+  List,
+  Sidebar,
+  SidebarItem,
+  Search,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -25,12 +45,29 @@ Vue.use(Button)
   .use(Tabbar)
   .use(TabbarItem)
   .use(Icon)
+  .use(Notify)
+  .use(Dialog)
+  .use(Swipe)
+  .use(SwipeItem)
+  .use(Lazyload)
+  .use(Grid)
+  .use(GridItem)
+  .use(VanImage)
+  .use(PullRefresh)
+  .use(List)
+  .use(Sidebar)
+  .use(SidebarItem)
+  .use(Search)
+  .use(GoodsAction)
+  .use(GoodsActionIcon)
+  .use(GoodsActionButton)
+
 
 import "vant/lib/index.css";
 import "lib-flexible";
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
-  if (!store.state.UserToken) {
+  if (!Cookies.get('token')) {
     if (
       to.matched.length > 0 &&
       !to.matched.some(record => record.meta.requiresAuth)
@@ -41,6 +78,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (!store.state.permissionList) {
+
       store.dispatch("FETCH_PERMISSION").then(() => {
         next({ path: to.path });
       });

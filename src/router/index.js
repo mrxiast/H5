@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import layout from "@views/layout/index"
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject)
@@ -48,6 +47,7 @@ const routes = [
       name: '页面丢失'
     }
   }
+
 ];
 
 const router = new VueRouter({

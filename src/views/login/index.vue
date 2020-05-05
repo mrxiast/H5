@@ -33,7 +33,10 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import { encrypt } from "../../utils/cryptoAes";
+import {loginApi} from './api'
+import {Notify} from "vant"
 export default {
   data() {
     return {
@@ -43,7 +46,25 @@ export default {
   },
   methods: {
     login() {
-      console.log(encrypt(this.password));
+      let that = this
+      let data = {
+        username:this.userName,
+        password:encrypt(this.password),
+        type:"101"
+      }
+      loginApi(data).then(res=>{
+        if(res.code === 200){
+          var inFifteenMinutes = new Date(new Date().getTime() + 6 * 60 * 60 * 1000*1000);
+          Cookies.set("token",res.token,{ expires: inFifteenMinutes})
+          Notify({ type: 'success', message: '登陆成功' })
+          
+          this.$router.push('/home')
+        }
+      })
+      setTimeout(function(){
+        // Cookies.set('token', encrypt(this.password));
+        // that.$router.push('/home')
+      },500)
     }
   }
 };

@@ -5,6 +5,6 @@ import {
   postRequestJson
 } from "@/axios";
 
-export function fetchPermission() {
-  return getRequest("/api/permission");
+export function fetchPermission(params) {
+  return getRequest("/v1/routers",params);
 }
