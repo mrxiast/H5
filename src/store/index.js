@@ -15,6 +15,16 @@ const state = {
 };
 /* 准备动态添加的路由 */
 const DynamicRoutes = [
+
+  {
+    path: "/receiveCoupon",
+    component: () => import("@/views/receive-coupon/index.vue"),
+    name: "receiveCoupon",
+    meta: {
+      requiresAuth: true,
+      name: "领券",
+    }
+  },
   {
     path: "/search",
     component: () => import("@/views/search/index.vue"),

@@ -45,8 +45,8 @@ export default {
                     imgUrl: require('../../static/zp/wt.jpg'),
                     id: '1',
                     tag: '双色入',
-                    title: '羊羔绒街头潮牌外套',
-                    about: '简约风格的街头感',
+                    title: '街头潮牌外套',
+                    about: '简约风格街头感',
                     price: '499'
                 },
                 {
@@ -62,15 +62,15 @@ export default {
                     id: '3',
                     tag: '双色入',
                     title: '正式西装上衣',
-                    about: '简约而不简单，庄重不随意',
+                    about: '简约而不简单',
                     price: '299'
                 },
                 {
                     imgUrl: require('../../static/zp/yd.jpg'),
                     id: '4',
                     tag: '双色入',
-                    title: '全棉修身韩版T-short',
-                    about: '流行修身夏季完美搭配',
+                    title: '全棉修身短袖',
+                    about: '夏季完美搭配',
                     price: '499'
                 }
             ]

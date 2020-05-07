@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "bcrypt": "^4.0.1",
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",

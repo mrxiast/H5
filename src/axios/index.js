@@ -2,7 +2,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Notify } from "vant";
 import { setStore, getStore } from "@/utils/storage";
-const baseURL = "http://127.0.0.1:3000";
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
+let baseURL = ''
+if (IS_PROD) {
+  baseURL = "http://service.lovetxt.xyz";
+} else {
+  baseURL = "http://127.0.0.1:3000";
+}
+
 axios.defaults.headers.Authorization = 'application/x-www-form-urlencoded';
 export const service = axios.create({
   baseURL: baseURL,
@@ -12,10 +19,10 @@ export const service = axios.create({
 service.interceptors.request.use(
   config => {
     let token = Cookies.get("token");
-        if (token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-          config.headers.token = `${token}`;
-          config.headers.Authorization =  `${token}`;
-        }
+    if (token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+      config.headers.token = `${token}`;
+      config.headers.Authorization = `${token}`;
+    }
     return config;
   },
   err => {
@@ -54,7 +61,7 @@ service.interceptors.response.use(
         if (data.msg !== null) {
           Notify({ type: 'danger', message: data.msg })
         } else {
-          Notify({ type: 'danger', message: "未知错误"})
+          Notify({ type: 'danger', message: "未知错误" })
         }
         break;
       case 500:
@@ -62,7 +69,7 @@ service.interceptors.response.use(
         if (data.msg !== null) {
           Notify({ type: 'danger', message: data.msg })
         } else {
-          Notify({ type: 'danger', message: "未知错误"})
+          Notify({ type: 'danger', message: "未知错误" })
         }
         break;
       case 100:
@@ -70,7 +77,7 @@ service.interceptors.response.use(
         if (data.msg !== null) {
           Notify({ type: 'danger', message: data.msg })
         } else {
-          Notify({ type: 'danger', message: "未知错误"})
+          Notify({ type: 'danger', message: "未知错误" })
         }
         break;
       default:

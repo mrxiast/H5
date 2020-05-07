@@ -1,3 +1,11 @@
+.banner{
+  width:375px;
+}
+.my-swipe{
+  img{
+    width:375px;
+  }
+}
 .title{
   padding:15px;
   width:375px;
@@ -59,9 +67,10 @@
   margin:15px 0;
   padding:10px 20px;
   box-sizing: border-box;
-  display: flex;
+  overflow: hidden;
   box-shadow: 0px 0px 15px #ddd;
   .card{
+    float:left;
     height:24px;
     background-color: #dceae6;
     position: relative;
@@ -97,6 +106,7 @@
   .getMore{
     height:24px;
     line-height: 24px;
+    float:right;
   }
 }
 .goodInfo{
@@ -116,8 +126,15 @@
       display: flex;
       .infoTitle{
         text-align: right;
-        width:60px;
+        width:100px;
       }
     }
+  }
+}
+.showImgs{
+  width:375px;
+  img{
+    width:375px;
+    display:block;
   }
 }

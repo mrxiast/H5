@@ -33,7 +33,9 @@ import {
   Search,
   GoodsAction,
   GoodsActionIcon,
-  GoodsActionButton
+  GoodsActionButton,
+  Tab,
+  Tabs
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -61,6 +63,8 @@ Vue.use(Button)
   .use(GoodsAction)
   .use(GoodsActionIcon)
   .use(GoodsActionButton)
+  .use(Tab)
+  .use(Tabs)
 
 
 import "vant/lib/index.css";

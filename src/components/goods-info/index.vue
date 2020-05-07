@@ -45,7 +45,6 @@
                     <div class="con_tents">满999减100券</div>
                     <div class="yuanRight"></div>
                 </div>
-                <div style="height:1px;width:50px;"></div>
                 <div class="getMore" @click="getMoreCard">
                     立即领取
                     <van-icon name="arrow" />
@@ -77,15 +76,9 @@
             </div>
         </div>
         <div class="showImgs">
-            <img
-                style="display:block;"
-                v-for="(item,index) in banners"
-                :key="index"
-                :src="item"
-                alt
-            />
+            <img v-for="(item,index) in banners" :key="index" :src="item" alt />
         </div>
-        <div style="height:50px;width:375px;"></div>
+        <div style="height:50px;"></div>
         <van-goods-action>
             <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
             <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" />
@@ -124,6 +117,7 @@ export default {
         },
         getMoreCard() {
             console.log('123')
+            this.$router.push('/receiveCoupon')
         },
         onClickLeft() {
             console.log('left')
