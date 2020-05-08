@@ -14,9 +14,7 @@
             <van-tabbar-item icon="home-o">首页</van-tabbar-item>
             <van-tabbar-item to="/classification" icon="points">分类</van-tabbar-item>
             <van-tabbar-item icon="shopping-cart-o">购物车</van-tabbar-item>
-            <van-tabbar-item icon="user-o">
-                <router-link to="/my">我的</router-link>
-            </van-tabbar-item>
+            <van-tabbar-item icon="user-o">我的</van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
@@ -31,11 +29,9 @@ export default {
     mounted() {},
     methods: {
         onClickLeft() {
-            console.log('left')
             this.$router.go(-1)
         },
         onClickRight() {
-            console.log('onClickRight')
             this.$router.push('/home')
         },
         onChange() {
@@ -53,7 +49,6 @@ export default {
                     this.$router.replace('/my')
                     break
             }
-            console.log(this.active, '009')
             this.$store.commit('SET_ACTIVE', this.active)
         }
     }

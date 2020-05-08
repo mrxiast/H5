@@ -45,7 +45,8 @@ import {
   Tab,
   Tabs,
   Cell,
-  CellGroup
+  CellGroup,
+  ShareSheet
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -77,6 +78,7 @@ Vue.use(Button)
   .use(Tabs)
   .use(Cell)
   .use(CellGroup)
+  .use(ShareSheet)
 
 
 import "vant/lib/index.css";

@@ -66,27 +66,24 @@
                         <van-icon name="location-o" style="line-height: inherit;" />
                     </template>
                 </van-cell>
-                <van-cell
-                    title="设置"
-                    is-link
-                    to="index"
-                    style="text-align:left;border-top:1px solid #ddd;"
-                >
+                <van-cell title="设置" is-link style="text-align:left;border-top:1px solid #ddd;">
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #icon>
                         <van-icon name="setting-o" style="line-height: inherit;" />
                     </template>
                 </van-cell>
+                <van-cell
+                    title="退出"
+                    style="text-align:left;border-top:1px solid #ddd;"
+                    @click="exit"
+                >
+                    <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+                    <template #icon>
+                        <van-icon name="info-o" style="line-height: inherit;" />
+                    </template>
+                </van-cell>
             </div>
         </div>
-        <button @click="exit">退出</button>
-        <van-dialog
-            @cancel="cancel"
-            @confirm="isOk"
-            v-model="showExitModal"
-            title="退出"
-            show-cancel-button
-        >确定退出此账号</van-dialog>
     </div>
 </template>
 

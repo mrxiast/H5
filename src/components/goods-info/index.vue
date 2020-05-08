@@ -24,7 +24,7 @@
                         <div class="titleAdd">简约风格的街头感 潮流搭配</div>
                     </div>
                     <div class="title_top_right">
-                        <div class="shareBtn">
+                        <div class="shareBtn" @click="shares">
                             <div class="icons">
                                 <img src="../../static/goodsInfo/share.png" alt />
                             </div>
@@ -78,6 +78,13 @@
         <div class="showImgs">
             <img v-for="(item,index) in banners" :key="index" :src="item" alt />
         </div>
+        <van-share-sheet
+            @select="onSelect"
+            v-model="showShare"
+            :options="options"
+            title="立即分享给好友"
+            description="描述信息"
+        />
         <div style="height:50px;"></div>
         <van-goods-action>
             <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
@@ -94,11 +101,19 @@ export default {
     components: {},
     data() {
         return {
+            showShare: false,
             banners: [
                 require('../../static/goodsInfo/zz.jpg'),
                 require('../../static/goodsInfo/zz.jpg'),
                 require('../../static/goodsInfo/zz.jpg'),
                 require('../../static/goodsInfo/zz.jpg')
+            ],
+            options: [
+                {name: '微信', icon: 'wechat'},
+                {name: '微博', icon: 'weibo'},
+                {name: '复制链接', icon: 'link'},
+                {name: '分享海报', icon: 'poster'},
+                {name: '二维码', icon: 'qrcode'}
             ]
         }
     },
@@ -106,6 +121,13 @@ export default {
         console.log(this.$route.query.id)
     },
     methods: {
+        shares() {
+            this.showShare = true
+        },
+        onSelect(option) {
+            console.log(option)
+            this.showShare = false
+        },
         onClickIcon() {
             console.log('点击图标')
         },
