@@ -1,14 +1,14 @@
 <template>
-    <div class="container">
+    <div class="container_c">
         <div class="box" v-for="(item,index) in list" :key="index">
             <div class="left">
                 <div class="left-box">
                     <div class="price-box">
                         <span class="c-price">￥{{item.denomination}}</span>
-                        <span>满1000减100</span>
+                        <span>{{item.introduce}}</span>
                     </div>
                     <div class="prict-con">
-                        <span>仅限包包、服装</span>
+                        <span>{{item.limit}}</span>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="right-box">
                     <div class="txt">立即</div>
                     <div class="txt">使用</div>
-                    <div class="prict-con">永久有效</div>
+                    <div class="prict-con">{{item.validity}}</div>
                 </div>
             </div>
             <div class="big-cir one"></div>
@@ -65,6 +65,9 @@ export default {
         return {
             activeName: 'a'
         }
+    },
+    mounted() {
+        console.log(this.list, '77777777')
     },
     methods: {}
 }

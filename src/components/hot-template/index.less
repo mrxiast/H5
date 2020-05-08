@@ -1,0 +1,64 @@
+.box{
+  width:315px;
+  height:120px;
+  background-color: #fff;
+  overflow: hidden;
+  border-bottom:1px solid #aaa;
+  padding-top:10px;
+  box-sizing: border-box;
+  .left{
+    width:100px;
+    height:100px;
+    margin-right:20px;
+    float:left;
+    position:relative;
+    img{
+      width:100px;
+      height:100px;
+    };
+    .hot-icon{
+      position:absolute;
+      width:20px;
+      height:30px;
+      top:0;
+      left:0;
+      img{
+        width:20px;
+      height:30px;
+      }
+    }
+  }
+  .right{
+    float:left;
+    width:195px;
+    height:120px;
+    .title{
+      height:65px;
+      text-align: left;
+      padding-top:5px;
+      .big-title{
+        font-size:16px;
+        color:#333;
+      }
+      .count{
+        color:#aaa;
+      }
+    }
+    .price{
+      height:30px;
+      display:flex;
+      line-height: 30px;
+      .price_num{
+        width:97px;
+        color:#177859;
+        font-size: 16px;
+        text-align: left;
+      }
+      .get-btn{
+        width:97px;
+        background-color: #177859;
+        color:#fff;
+      }
+    }
+  }
+}

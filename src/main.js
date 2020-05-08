@@ -3,6 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Cookies from 'js-cookie'
+// import AMap from 'vue-amap';
+// Vue.use(AMap);
+// AMap.initAMapApiLoader({
+//   // 高德key
+//   key: 'd60f917b96c86e57f01c75a4d3b19e38',
+//   // 插件集合 （插件按需引入）
+//   plugin: ['AMap.Geolocation']
+// });
 //添加ie兼容 性能可能没那么好可选用，也可删除删除需要在babel.config.js里面也要删除
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -35,7 +43,9 @@ import {
   GoodsActionIcon,
   GoodsActionButton,
   Tab,
-  Tabs
+  Tabs,
+  Cell,
+  CellGroup
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -65,6 +75,8 @@ Vue.use(Button)
   .use(GoodsActionButton)
   .use(Tab)
   .use(Tabs)
+  .use(Cell)
+  .use(CellGroup)
 
 
 import "vant/lib/index.css";

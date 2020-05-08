@@ -7,7 +7,8 @@ let baseURL = ''
 if (IS_PROD) {
   baseURL = "http://service.lovetxt.xyz";
 } else {
-  baseURL = "http://127.0.0.1:3000";
+  // baseURL = "http://127.0.0.1:3000";
+  baseURL = "http://service.lovetxt.xyz";
 }
 
 axios.defaults.headers.Authorization = 'application/x-www-form-urlencoded';

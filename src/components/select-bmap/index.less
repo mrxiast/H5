@@ -1,0 +1,332 @@
+.tangram-suggestion-main {
+  display: none !important;
+}
+
+.BMap {
+  .anchorBL {
+      top: 70px !important;
+  }
+  width: 375px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  #mapPanel {
+      min-height: 300px;
+      height: 100%;
+      width: 100%;
+      position: absolute !important;
+      background-color: rgba(76, 76, 76, 0.7686274509803922);
+  }
+  .pos-panel {
+      width: 92%;
+      left: 4%;
+      bottom: -50px;
+      position: absolute;
+  }
+  .pos-icon {
+      z-index: 999;
+      position: absolute;
+      left: 45%;
+      top: 45%;
+      width: 29px;
+      height: 40px;
+      display: block;
+  }
+  .pos-icon .obj {
+      position: absolute;
+  }
+  .pos-icon .obj > img {
+      width: 38px;
+  }
+  .pos-icon .shadow {
+      position: absolute;
+      top: 34px;
+      left: 3.5px;
+  }
+  .pos-icon .shadow > img {
+      width: 10px;
+  }
+  .pos-tool {
+      box-shadow: 0px 2px 2px #7b7b7b;
+      position: absolute;
+      width: 37px;
+      height: 37px;
+      border-radius: 5px;
+      background: #f0f0f0;
+      bottom: 140px;
+      text-align: center;
+      line-height: 34px;
+      img {
+          width: 24px;
+      }
+  }
+  .city-panel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f0f0f0;
+      z-index: 5000;
+      display: none;
+  }
+  .poi-panel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f0f0f0;
+      z-index: 5000;
+      display: none;
+  }
+  .m-filter {
+      width: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px !important;
+      z-index: 10000;
+      background-color: #fff;
+      margin: 0 auto;
+      padding: 15px 0px;
+      .cancel {
+          position: absolute;
+          display: block;
+          font-size: 15px;
+          right: 15px;
+          top: 14px;
+          z-index: 10;
+      }
+      .sl-switch {
+          top: 0px;
+          position: absolute;
+          display: block;
+          z-index: 10;
+      }
+  }
+  .m-filter {
+      div {
+          .address-detail {
+              outline: none;
+              display: block;
+              width: 75.8%;
+              border: 0px solid #000;
+              border-radius: 0;
+              margin-left: 15%;
+              -webkit-appearance: none;
+              padding-left: 10px;
+              border-bottom: 1px solid #c6c6c6;
+              line-height: 20px;
+              font-size: 15px;
+              margin-top: -5px;
+              padding-bottom: 5px;
+          }
+      }
+  }
+  @media only screen and (max-width: 320px) {
+      width: 70%;
+  }
+  .m-filter > div {
+      width: 85%;
+      margin: 0 auto;
+  }
+  .m-filter .mui-search {
+      display: block;
+      position: relative;
+      content: '';
+  }
+  .m-filter .curcity {
+      text-align: center;
+      position: absolute;
+      font-size: 16px;
+      line-height: 16px;
+      left: 0px;
+      top: 15px;
+      width: 60px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  #m-result {
+      position: absolute;
+      bottom: 10px;
+      width: 92%;
+      background: #fff;
+      left: 4%;
+      border-radius: 5px;
+      box-shadow: 0px 2px 2px #7b7b7b;
+      .curResult {
+          float: left;
+          padding-left: 40px;
+          box-sizing: border-box;
+          display: block;
+          width: 82%;
+          span {
+              height: 26px;
+              width: 100%;
+              display: block;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              font-size: 15px;
+          }
+          .curTit {
+              float: left;
+              padding-top: 6px;
+              color: #35353f;
+              font-size: 18px;
+          }
+          .curAddress {
+              float: left;
+              padding-bottom: 4px;
+              color: #90909b;
+              height: 20px;
+          }
+          img {
+              width: 20px;
+              position: absolute;
+              left: 10px;
+              top: 18px;
+          }
+      }
+      .confirm {
+          float: left;
+          width: 18%;
+          border: 0px;
+          height: 60px;
+          background: #1ea7fe;
+          color: #fff;
+          border-radius: 0px 5px 5px 0px;
+          font-size: 15px;
+      }
+  }
+  .cityList {
+      width: 100%;
+      height: 92%;
+      overflow: scroll;
+      overflow-x: hidden;
+      background: #fff;
+      position: absolute;
+      display: none;
+      z-index: 100000;
+      top: 45px;
+      .content {
+          position: relative;
+          ul {
+              padding-top: 49px;
+          }
+          span {
+              padding-left: 15px;
+              font-size: 15px;
+              min-height: 28px;
+          }
+          li {
+              padding-left: 15px;
+              font-size: 15px;
+              line-height: 49px;
+              border-bottom: 1px solid #f1f1f6;
+          }
+          .tit-bar {
+              width: 100%;
+              background: #f0f0f0;
+              display: block;
+              font-size: 13px;
+              color: #90909b;
+              padding: 15px;
+          }
+      }
+      .footer {
+          p {
+              line-height: 15px;
+              a {
+                  line-height: 20px;
+                  font-size: 14px;
+                  color: #35353f;
+                  font-family: PingFangSC-Semibold;
+              }
+          }
+      }
+      .cur-city {
+          width: 100%;
+          position: fixed;
+          top: 44px;
+          background: #fff;
+          border-bottom: 0px solid #fff !important;
+      }
+  }
+  .cityList.fixing-ios {
+      top: 64px;
+      .cur-city {
+          top: 63px;
+      }
+  }
+  .poiList {
+      width: 100%;
+      height: 100%;
+      overflow: scroll;
+      overflow-x: hidden;
+      position: absolute;
+      background-color: #f0f0f0;
+      z-index: 99999;
+      top: 52px;
+      .content {
+          background: #f0f0f0;
+          padding: 10px;
+          .empty {
+              width: 100%;
+              text-align: center;
+              img {
+                  margin-top: 80px;
+                  width: 158px;
+              }
+          }
+          ul {
+              background: #fff;
+              padding-left: 0px;
+          }
+          li {
+              text-align: left;
+              position: relative;
+              padding-left: 40px;
+              font-size: 15px;
+              border-bottom: 1px solid #f1f1f6;
+              img {
+                  position: absolute;
+                  top: 15px;
+                  width: 20px;
+                  left: 10px;
+              }
+          }
+          span {
+              witdh: 100%;
+              display: block;
+              font-size: 15px;
+              line-height: 28px;
+          }
+          .poi-name {
+          }
+          .poi-address {
+              font-size: 13px;
+              color: #90909b;
+              min-height: 28px;
+          }
+      }
+      .footer {
+          p {
+              a {
+                  font-size: 14px;
+                  color: #35353f;
+                  font-family: PingFangSC-Semibold;
+              }
+          }
+      }
+      .cur-city {
+          width: 100%;
+          position: fixed;
+          top: 8%;
+          background: #fff;
+      }
+  }
+  .poiList.fixing-ios {
+      top: 115px;
+  }
+}

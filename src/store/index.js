@@ -17,9 +17,41 @@ const state = {
 const DynamicRoutes = [
 
   {
+    path: "/fashionRoad",
+    component: () => import("@/views/fashion-road/index.vue"),
+    name: "fashionRoad",
+    meta: {
+      requiresAuth: true,
+      name: "领优惠券",
+    }
+  }, {
     path: "/receiveCoupon",
     component: () => import("@/views/receive-coupon/index.vue"),
     name: "receiveCoupon",
+    meta: {
+      requiresAuth: true,
+      name: "领优惠券",
+    }
+  }, {
+    path: "/moreHot",
+    component: () => import("@/views/more-hot/index.vue"),
+    name: "moreHot",
+    meta: {
+      requiresAuth: true,
+      name: "收货地址",
+    }
+  }, {
+    path: "/selectAddress",
+    component: () => import("@/views/select-address/index.vue"),
+    name: "selectAddress",
+    meta: {
+      requiresAuth: true,
+      name: "收货地址",
+    }
+  }, {
+    path: "/myCoupon",
+    component: () => import("@/views/my-coupon/index.vue"),
+    name: "myCoupon",
     meta: {
       requiresAuth: true,
       name: "领券",
@@ -91,6 +123,14 @@ const DynamicRoutes = [
         meta: {
           requiresAuth: true,
           name: "分类",
+        }
+      }, {
+        path: "/shopCar",
+        component: () => import("@/views/shop-car/index.vue"),
+        name: "shopCar",
+        meta: {
+          requiresAuth: true,
+          name: "购物车",
         }
       }
     ]

@@ -47,8 +47,8 @@ export default {
                     this.$router.replace('/classification')
                     break
                 case 2:
-                // this.$router.replace('/classification')
-                // break
+                    this.$router.replace('/shopCar')
+                    break
                 case 3:
                     this.$router.replace('/my')
                     break
