@@ -46,7 +46,10 @@ import {
   Tabs,
   Cell,
   CellGroup,
-  ShareSheet
+  ShareSheet,
+  Stepper,
+  Checkbox,
+  CheckboxGroup
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -79,6 +82,9 @@ Vue.use(Button)
   .use(Cell)
   .use(CellGroup)
   .use(ShareSheet)
+  .use(Stepper)
+  .use(Checkbox)
+  .use(CheckboxGroup)
 
 
 import "vant/lib/index.css";

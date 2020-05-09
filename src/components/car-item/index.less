@@ -1,5 +1,5 @@
 .item-box{
-  height:80px;
+  height:90px;
   width:345px;
   border-bottom:1px solid #ddd;
   display:flex;
@@ -32,10 +32,23 @@
         font-weight: 700;
         font-size:16px;
         line-height: 30px;
+        .tags{
+          padding:0 5px;
+          font-size:12px;
+          color:#fff;
+          background-color: #9d2733;
+          border-radius: 5px;
+        }
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .item-info{
         font-size:12px;
         color:#aaa;
+        span{
+          margin:0 5px;
+        }
       }
       
     }
