@@ -11,12 +11,30 @@ const state = {
   set UserToken (value) {
     localStorage.setItem("token", value);
   },
-  active: 0
+  active: 0,
+  shopcar: {},
+  nowAddress: {}
 };
 /* 准备动态添加的路由 */
 const DynamicRoutes = [
 
   {
+    path: "/allOrder",
+    component: () => import("@/views/all-order/index.vue"),
+    name: "allOrder",
+    meta: {
+      requiresAuth: true,
+      name: "全部订单",
+    }
+  }, {
+    path: "/subOrder",
+    component: () => import("@/views/sub-order/index.vue"),
+    name: "subOrder",
+    meta: {
+      requiresAuth: true,
+      name: "提交订单",
+    }
+  }, {
     path: "/fashionRoad",
     component: () => import("@/views/fashion-road/index.vue"),
     name: "fashionRoad",
@@ -184,6 +202,14 @@ const mutations = {
   //设置当前所在的页面的active
   SET_ACTIVE (state, active) {
     state.active = active
+  },
+  //设置购物车结算信息
+  SET_SHOPCAR (state, data) {
+    state.shopcar = data
+  },
+  //设置当前订单的选择的地址
+  SET_NOWADDRESS (state, data) {
+    state.nowAddress = data
   }
 };
 

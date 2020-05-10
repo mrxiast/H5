@@ -1,6 +1,6 @@
 <template>
     <div style="height:100%;">
-        <van-nav-bar title="街区之家" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+        <van-nav-bar title="街区之家" left-arrow @click-left="onClickLeft" @click-right="onChange(0)">
             <template #right>
                 <van-icon name="wap-home-o" size="20" />
             </template>
@@ -12,7 +12,7 @@
 
         <van-tabbar v-model="active" @change="onChange">
             <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item to="/classification" icon="points">分类</van-tabbar-item>
+            <van-tabbar-item icon="points">分类</van-tabbar-item>
             <van-tabbar-item icon="shopping-cart-o">购物车</van-tabbar-item>
             <van-tabbar-item icon="user-o">我的</van-tabbar-item>
         </van-tabbar>
@@ -34,8 +34,13 @@ export default {
         onClickRight() {
             this.$router.push('/home')
         },
-        onChange() {
-            switch (this.active) {
+        onChange(e) {
+            if (e === 0) {
+                this.active = 0
+            }
+            this.$store.commit('SET_ACTIVE', this.active)
+            console.log(this.$store.state.active, 'this.$store.state.active')
+            switch (this.$store.state.active) {
                 case 0:
                     this.$router.replace('/home')
                     break
@@ -49,7 +54,6 @@ export default {
                     this.$router.replace('/my')
                     break
             }
-            this.$store.commit('SET_ACTIVE', this.active)
         }
     }
 }

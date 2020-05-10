@@ -27,7 +27,7 @@
                 <div class="shadow-box">
                     <div class="title">我的订单</div>
                     <div class="item-box">
-                        <div class="item">
+                        <div class="item" @click="goAllOrder">
                             <div>
                                 <van-icon color="#177859" size="30" name="coupon-o" />
                             </div>
@@ -84,6 +84,12 @@
                 </van-cell>
             </div>
         </div>
+        <van-dialog
+            v-model="showExitModal"
+            @confirm="isOk"
+            @cancel="cancel"
+            show-cancel-button
+        >确定退出当前账号</van-dialog>
     </div>
 </template>
 
@@ -111,6 +117,9 @@ export default {
         },
         goAboutWe() {
             console.log('关于我们')
+        },
+        goAllOrder() {
+            this.$router.push('/allOrder')
         }
     }
 }

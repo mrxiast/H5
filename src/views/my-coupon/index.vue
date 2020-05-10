@@ -8,7 +8,7 @@
                 :key="index"
             >
                 <div style="display:flex;flex-wrap:wrap;justify-content:center;">
-                    <Coupon :list="item.cards"></Coupon>
+                    <Coupon :quan="item"></Coupon>
                 </div>
             </van-tab>
         </van-tabs>
@@ -28,6 +28,7 @@ export default {
                 {
                     name: '1',
                     title: '未使用',
+                    isUse: 1,
                     cards: [
                         {
                             denomination: '100',
@@ -52,20 +53,24 @@ export default {
                 {
                     name: '2',
                     title: '已使用',
+                    isUse: 2,
                     cards: [
                         {
+                            id: '1',
                             denomination: '100',
                             introduce: '满1000减100',
                             limit: '仅限包包、外套使用',
                             validity: '永久使用'
                         },
                         {
+                            id: '1',
                             denomination: '200',
                             introduce: '满1000减200',
                             limit: '仅限包包、外套使用',
                             validity: '永久使用1'
                         },
                         {
+                            id: '1',
                             denomination: '300',
                             introduce: '满1000减300',
                             limit: '仅限包包、外套使用',
@@ -76,6 +81,7 @@ export default {
                 {
                     name: '3',
                     title: '已过期',
+                    isUse: 3,
                     cards: [
                         {
                             denomination: '100',

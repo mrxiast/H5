@@ -49,7 +49,10 @@ import {
   ShareSheet,
   Stepper,
   Checkbox,
-  CheckboxGroup
+  CheckboxGroup,
+  RadioGroup,
+  Radio,
+  Loading
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -85,12 +88,16 @@ Vue.use(Button)
   .use(Stepper)
   .use(Checkbox)
   .use(CheckboxGroup)
+  .use(RadioGroup)
+  .use(Radio)
+  .use(Loading)
 
 
 import "vant/lib/index.css";
 import "lib-flexible";
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
+
   if (!Cookies.get('token')) {
     if (
       to.matched.length > 0 &&

@@ -18,6 +18,24 @@ export default {
         window.addEventListener('beforeunload', () => {
             sessionStorage.setItem('store', JSON.stringify(this.$store.state))
         })
+
+        // setTimeout(() => {
+        //     window.L2Dwidget.init({
+        //         pluginRootPath: '../public/live2dw/',
+        //         pluginJsPath: 'lib/',
+        //         pluginModelPath: 'live2d-widget-model-nico/assets/',
+        //         tagMode: false,
+        //         debug: false,
+        //         model: {
+        //             // jsonPath: '../public/live2dw/live2d-widget-model-nico/assets/nico.model.json',
+        //             scale: 1
+        //         },
+
+        //         display: {position: 'left', width: 150, height: 300},
+        //         mobile: {show: true},
+        //         log: false
+        //     })
+        // }, 1000)
     }
 }
 </script>
@@ -25,6 +43,9 @@ export default {
 <style lang="less">
 .router-link-active {
     text-decoration: none !important;
+}
+.van-tabs__line {
+    background-color: #157658 !important;
 }
 a {
     text-decoraction: none !important;

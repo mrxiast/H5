@@ -97,8 +97,8 @@ export default {
     },
     methods: {
         submitAdd() {
-            console.log(this.curTit + this.curAddress)
-            console.log(this.r_lng + ',' + this.r_lat)
+            // console.log(this.curTit + this.curAddress)
+            // console.log(this.r_lng + ',' + this.r_lat)
             let address = {
                 curTit: this.curTit,
                 curAddress: this.curAddress,
@@ -106,7 +106,6 @@ export default {
                 r_lat: this.r_lat
             }
             this.$emit('func', address)
-            this.$router.replace('/my')
         },
         loadScript() {
             loadingMap('baidu', 'PHP7EQW84t75TQpliGLsiz8aZlQZushy').then(() => {
@@ -138,7 +137,17 @@ export default {
             // });
             this.map = new window.BMap.Map('mapPanel')
             //初始城市上海
-            this.map.centerAndZoom(new BMap.Point(121.480539, 31.235929), 18)
+            let nowr_lat = 0
+            let nowr_lng = 0
+            if (this.$store.state.nowAddress.r_lat && this.$store.state.nowAddress.r_lng) {
+                nowr_lat = this.$store.state.nowAddress.r_lat
+                nowr_lng = this.$store.state.nowAddress.r_lng
+            } else {
+                nowr_lat = 121.480539
+                nowr_lng = 31.235929
+            }
+            console.log(nowr_lat, nowr_lng, '77700000')
+            this.map.centerAndZoom(new BMap.Point(nowr_lat, nowr_lng), 18)
             this.map.addEventListener('dragend', () => {
                 // $(".pos-icon .obj").animate({
                 //   "top": "0px"

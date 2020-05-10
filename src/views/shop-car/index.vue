@@ -82,13 +82,6 @@ export default {
             this.$set(this.shopCarList[i], 'checked', false)
         }
     },
-    // watch:{
-    //     shopCarList:{
-    //         handler(newValue,oldValue){
-
-    //         }
-    //     }
-    // },
     methods: {
         fatherMethod(item, value, checked) {
             this.totalPrice = 0
@@ -117,18 +110,25 @@ export default {
         },
         submit() {
             console.log(this.subData, '998')
+            this.$store.commit('SET_SHOPCAR', this.subData)
+            this.$router.push('/subOrder')
         },
         changAll() {
             this.changeAllCheck = !!this.changeAllCheck
             this.totalPrice = 0
             this.totalNum = 0
+            this.subData = []
             for (let i = 0; i < this.shopCarList.length; ++i) {
                 this.shopCarList[i].checked = this.changeAllCheck
                 if (this.shopCarList[i].checked) {
                     this.totalPrice += this.shopCarList[i].amount * this.shopCarList[i].price
                     this.totalNum += this.shopCarList[i].amount
+                    this.subData.push(this.shopCarList[i])
+                } else {
+                    this.subData = []
                 }
             }
+            console.log(this.subData, '900000098')
         }
     }
 }

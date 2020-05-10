@@ -1,9 +1,9 @@
 <template>
     <div class="container_c">
-        <div class="box" v-for="(item,index) in list" :key="index">
-            <div class="left">
+        <div class="box" v-for="(item,index) in quan.cards" :key="index">
+            <div :class="quan.isUse == 3 ? 'left black-color' : 'left'">
                 <div class="left-box">
-                    <div class="price-box">
+                    <div :class="quan.isUse == 3 ? 'price-box black-color' : 'price-box'">
                         <span class="c-price">￥{{item.denomination}}</span>
                         <span>{{item.introduce}}</span>
                     </div>
@@ -14,8 +14,19 @@
             </div>
             <div class="right">
                 <div class="right-box">
-                    <div class="txt">立即</div>
-                    <div class="txt">使用</div>
+                    <div v-if="quan.isUse == 1">
+                        <div class="txt">立即</div>
+                        <div class="txt">使用</div>
+                    </div>
+                    <div v-if="quan.isUse == 2">
+                        <div class="txt">已经</div>
+                        <div class="txt">使用</div>
+                    </div>
+                    <div v-if="quan.isUse == 3">
+                        <div class="txt">已经</div>
+                        <div class="txt">过期</div>
+                    </div>
+
                     <div class="prict-con">{{item.validity}}</div>
                 </div>
             </div>
@@ -53,11 +64,9 @@
 <script>
 export default {
     props: {
-        list: {
-            type: Array,
-            default: () => {
-                return []
-            }
+        quan: {
+            type: Object,
+            default: () => {}
         }
     },
     components: {},
@@ -67,7 +76,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.list, '77777777')
+        console.log(this.quan, '77777777')
     },
     methods: {}
 }
