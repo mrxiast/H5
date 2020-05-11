@@ -1,0 +1,77 @@
+.container{
+  height:115px;
+  width:375px;
+
+}
+.oneTiao{
+  width:25px;
+  height:5px;
+  transform:skew(30deg,0deg);
+  background-color:#bfd0d8;
+  margin:0 5px;
+}
+.twoTiao{
+  width:25px;
+  height:5px;
+  transform:skew(30deg,0deg);
+  background-color:#e7cbc2;
+  margin:0 5px;
+}
+.tiao{
+  height:5px;
+  width:375px;
+  display: flex;
+}
+.info{
+  font-size: 14px;
+  min-height:105px;
+  width:375px;
+  
+  box-sizing: border-box;
+  .top{
+    padding:0 15px;
+    min-height:70px;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    .top-name-pnone{
+      overflow: hidden;
+      line-height:40px;
+      .top-name{
+        float: left;
+      }
+      .top-phone{
+        float:right;
+      }
+    }
+  }
+  .bottom{
+    line-height: 40px;
+    height:40px;
+    padding:0 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    .bot-left{
+      line-height: 40px;
+      float:left;
+      
+      padding-top:10px;
+    }
+    .bot-right{
+      height:40px;
+      float:right;
+      display: flex;
+      .bot-edit{
+        display: flex;
+        margin-right:10px;
+        .bot-icon{
+          padding-top:5px;
+          box-sizing: border-box;
+        }
+        .bot-txt{
+          margin-left:5px;
+        }
+      }
+    }
+  }
+  
+}

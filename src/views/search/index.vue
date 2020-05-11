@@ -1,6 +1,11 @@
 <template>
     <div class="container">
-        <van-nav-bar title="街区之家" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+        <van-nav-bar
+            :title="pageTitle"
+            left-arrow
+            @click-left="onClickLeft"
+            @click-right="onClickRight"
+        >
             <template #right>
                 <van-icon name="wap-home-o" size="20" />
             </template>
@@ -56,6 +61,7 @@
 export default {
     data() {
         return {
+            pageTitle: '',
             keyWord: '',
             hotWords: [
                 '手机',
@@ -79,6 +85,8 @@ export default {
         if (localStorage.getItem('historyWords')) {
             this.historyWords = JSON.parse(localStorage.getItem('historyWords'))
         }
+        this.pageTitle = this.$router.currentRoute.meta.name
+        console.log(this.$router, '770')
     },
     methods: {
         onClickLeft() {
@@ -87,6 +95,7 @@ export default {
         },
         onClickRight() {
             console.log('onClickRight')
+            this.$store.commit('SET_ACTIVE', 0)
             this.$router.push('/home')
         },
         onCancel() {

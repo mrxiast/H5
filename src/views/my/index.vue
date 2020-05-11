@@ -58,7 +58,7 @@
                 <van-cell
                     title="收货地址"
                     is-link
-                    to="/selectAddress"
+                    to="/myAddress"
                     style="text-align:left;border-top:1px solid #ddd;"
                 >
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
@@ -85,11 +85,12 @@
             </div>
         </div>
         <van-dialog
+            title="确定退出当前账号"
             v-model="showExitModal"
             @confirm="isOk"
             @cancel="cancel"
             show-cancel-button
-        >确定退出当前账号</van-dialog>
+        ></van-dialog>
     </div>
 </template>
 

@@ -19,6 +19,14 @@ const state = {
 const DynamicRoutes = [
 
   {
+    path: "/myAddress",
+    component: () => import("@/views/my-address/index.vue"),
+    name: "myAddress",
+    meta: {
+      requiresAuth: true,
+      name: "我的地址",
+    }
+  }, {
     path: "/allOrder",
     component: () => import("@/views/all-order/index.vue"),
     name: "allOrder",
