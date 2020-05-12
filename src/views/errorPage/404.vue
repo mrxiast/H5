@@ -43,7 +43,7 @@ export default {
       this.$router.push("/home");
     },
     backPage() {
-      this.$router.go(-1);
+      window.history.back();
     }
   },
   computed: {

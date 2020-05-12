@@ -63,6 +63,14 @@ export default {
             type: Object,
             default: () => {}
         }
+        // exitItem: {
+        //     type: Function,
+        //     default: () => {}
+        // },
+        // delItem: {
+        //     type: Function,
+        //     default: () => {}
+        // }
     },
     data() {
         return {
@@ -77,6 +85,7 @@ export default {
     methods: {
         exitItem() {
             console.log('编辑')
+            this.$emit('exitItem', this.addressInfo)
         },
         delItem() {
             this.type = 2
@@ -88,6 +97,7 @@ export default {
             if (this.type === 1) {
                 console.log('设置成功')
             } else {
+                this.$emit('delItem', this.addressInfo)
                 console.log('删除成功')
             }
             this.show = false

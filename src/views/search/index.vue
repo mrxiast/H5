@@ -91,7 +91,7 @@ export default {
     methods: {
         onClickLeft() {
             console.log('left')
-            this.$router.go(-1)
+            window.history.back()
         },
         onClickRight() {
             console.log('onClickRight')

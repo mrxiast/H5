@@ -29,7 +29,7 @@ export default {
     mounted() {},
     methods: {
         onClickLeft() {
-            this.$router.go(-1)
+            window.history.back()
         },
         onClickRight() {
             this.$router.push('/home')

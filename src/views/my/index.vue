@@ -74,7 +74,7 @@
                 </van-cell>
                 <van-cell
                     title="退出"
-                    style="text-align:left;border-top:1px solid #ddd;"
+                    style="text-align:left;border-top:1px solid #ddd;border-bottom:1px solid #ddd;"
                     @click="exit"
                 >
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->

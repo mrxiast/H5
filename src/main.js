@@ -14,6 +14,9 @@ import Cookies from 'js-cookie'
 //添加ie兼容 性能可能没那么好可选用，也可删除删除需要在babel.config.js里面也要删除
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
+import VConsole from 'vconsole';
+let vConsole = new VConsole();
+Vue.use(vConsole)
 
 import {
   Button,
@@ -52,7 +55,8 @@ import {
   CheckboxGroup,
   RadioGroup,
   Radio,
-  Loading
+  Loading,
+  AddressEdit
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -91,6 +95,7 @@ Vue.use(Button)
   .use(RadioGroup)
   .use(Radio)
   .use(Loading)
+  .use(AddressEdit)
 
 
 import "vant/lib/index.css";
@@ -127,6 +132,12 @@ router.afterEach((to, from, next) => {
   var routerList = to.matched;
   store.commit("SET_CURRENT_MENU", to.name);
 });
+window.onpageshow = function (event) {
+  if (event.persisted) {
+    //返回执行业务
+    console.log('手机自带返回')
+  }
+}
 
 new Vue({
   router,
