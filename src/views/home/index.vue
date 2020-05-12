@@ -104,6 +104,9 @@ export default {
             }
         }
     },
+    mounted() {
+        this.$store.commit('SET_ACTIVE', 0)
+    },
     methods: {
         getYhq() {
             console.log('331')

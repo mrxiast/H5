@@ -33,19 +33,19 @@
                             </div>
                             <div>全部订单</div>
                         </div>
-                        <div class="item">
+                        <div class="item" @click="goWaitPay">
                             <div>
                                 <van-icon color="#177859" size="30" name="balance-pay" />
                             </div>
-                            <div>待支付</div>
+                            <div>已完成</div>
                         </div>
-                        <div class="item">
+                        <div class="item" @click="goWaitget">
                             <div>
                                 <van-icon color="#177859" size="30" name="certificate" />
                             </div>
                             <div>待发货</div>
                         </div>
-                        <div class="item">
+                        <div class="item" @click="goWaitRec">
                             <div>
                                 <van-icon color="#177859" size="30" name="logistics" />
                             </div>
@@ -120,7 +120,16 @@ export default {
             console.log('关于我们')
         },
         goAllOrder() {
-            this.$router.push('/allOrder')
+            this.$router.push({path: '/allOrder', query: {nav: '1'}})
+        },
+        goWaitPay() {
+            this.$router.push({path: '/allOrder', query: {nav: '2'}})
+        },
+        goWaitget() {
+            this.$router.push({path: '/allOrder', query: {nav: '3'}})
+        },
+        goWaitRec() {
+            this.$router.push({path: '/allOrder', query: {nav: '4'}})
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <van-nav-bar title="街区之家" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+        <van-nav-bar title="街区之家" @click-right="onClickRight">
             <template #right>
                 <van-icon name="wap-home-o" size="20" />
             </template>

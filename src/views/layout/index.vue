@@ -1,6 +1,6 @@
 <template>
     <div style="height:100%;">
-        <van-nav-bar title="街区之家" left-arrow @click-left="onClickLeft" @click-right="onChange(0)">
+        <van-nav-bar title="街区之家" @click-right="onChange(0)">
             <template #right>
                 <van-icon name="wap-home-o" size="20" />
             </template>
@@ -26,8 +26,42 @@ export default {
             active: this.$store.state.active
         }
     },
-    mounted() {},
+    mounted() {
+        if (window.history && window.history.pushState) {
+            // 往历史记录里面添加一条新的当前页面的url
+            history.pushState(null, null, document.URL)
+            // 给 popstate 绑定一个方法 监听页面刷新
+            window.addEventListener('popstate', this.backChange, false) //false阻止默认事件
+        }
+    },
+    destroyed() {
+        window.removeEventListener('popstate', this.backChange, false) //false阻止默认事件
+    },
     methods: {
+        backChange() {
+            const that = this
+            console.log(this.$route.path)
+            switch (this.$route.path) {
+                case '/home':
+                    // this.$router.replace('/home')
+                    this.$store.commit('SET_ACTIVE', 0)
+                    break
+                case '/classification':
+                    // this.$router.replace('/classification')
+                    this.$store.commit('SET_ACTIVE', 1)
+                    break
+                case '/shopCar':
+                    // this.$router.replace('/shopCar')
+                    this.$store.commit('SET_ACTIVE', 2)
+                    break
+                case '/my':
+                    // this.$router.replace('/my')
+                    this.$store.commit('SET_ACTIVE', 3)
+                    break
+            }
+            this.active = this.$store.state.active
+            console.log('监听到了')
+        },
         onClickLeft() {
             window.history.back()
         },

@@ -59,7 +59,7 @@ export default {
             AddressInfo: {
                 //收货人信息初始值
                 name: '', //姓名
-                tel: '13842744944', //电话
+                tel: '', //电话
                 province: '', //省份
                 city: '', //城市
                 country: '', //区县
@@ -71,9 +71,39 @@ export default {
             areaList,
             pageTitle: '',
             addressList: [
-                {id: '001', name: '张三', phone: '13742744944', status: '1', address: '郑州市郑州市'},
-                {id: '002', name: '李四', phone: '13742744944', status: '2', address: '郑州市郑州市'},
-                {id: '003', name: '张三', phone: '13742744944', status: '2', address: '在深圳市郑州市'}
+                {
+                    id: '001',
+                    name: '张三', //姓名
+                    tel: '13842744944', //电话
+                    province: '河南省', //省份
+                    city: '郑州市', //城市
+                    country: '上街区', //区县
+                    areaCode: '', //地址code：ID
+                    addressDetail: '王村镇555号', //详细地址
+                    isDefault: true //是否选择默认
+                },
+                {
+                    id: '002',
+                    name: '张三', //姓名
+                    tel: '13842744944', //电话
+                    province: '河南省', //省份
+                    city: '郑州市', //城市
+                    country: '上街区', //区县
+                    areaCode: '', //地址code：ID
+                    addressDetail: '王村镇555号', //详细地址
+                    isDefault: false //是否选择默认
+                },
+                {
+                    id: '003',
+                    name: '张三', //姓名
+                    tel: '13842744944', //电话
+                    province: '河南省', //省份
+                    city: '郑州市', //城市
+                    country: '上街区', //区县
+                    areaCode: '', //地址code：ID
+                    addressDetail: '王村镇555号', //详细地址
+                    isDefault: false //是否选择默认
+                }
             ],
             radio: '',
             type: 1 //1添加 2编辑
@@ -104,13 +134,16 @@ export default {
                 this.show = false
             }
         },
+        //退出编辑
         onExit() {
             this.show = false
+            this.AddressInfo = {}
         },
+        //编辑
         fatherExit(e) {
             this.type = 2
             this.title = '编辑'
-            console.log(e, 'fatherExit')
+            this.AddressInfo = JSON.parse(JSON.stringify(e))
             this.show = true
         },
         fatherDel(e) {

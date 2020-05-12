@@ -12,16 +12,18 @@
                 <div class="top">
                     <div class="top-name-pnone">
                         <div class="top-name">{{addressInfo.name}}</div>
-                        <div class="top-phone">{{addressInfo.phone}}</div>
+                        <div class="top-phone">{{addressInfo.tel}}</div>
                     </div>
-                    <div class="top-address">{{addressInfo.address}}</div>
+                    <div
+                        class="top-address"
+                    >{{addressInfo.province}}{{addressInfo.city}}{{addressInfo.country}}{{addressInfo.addressDetail}}</div>
                 </div>
                 <div class="bottom">
                     <div class="bot-left" @click="setDefault">
                         <van-radio
                             color="red"
                             :name="addressInfo.id"
-                        >{{addressInfo.status == 1 ? '默认':'设为默认' }}</van-radio>
+                        >{{addressInfo.isDefault ? '默认':'设为默认' }}</van-radio>
                     </div>
                     <div class="bot-right">
                         <div class="bot-edit" @click="exitItem">

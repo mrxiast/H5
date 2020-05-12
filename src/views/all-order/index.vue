@@ -20,9 +20,9 @@
                 :key="index"
             >
                 <div class="content">
-                    <van-loading v-if="orderList == null" />
+                    <van-loading v-if="showLoading" />
                     <div v-else>
-                        <div v-for="(item,index) in orderList" :key="item.id">
+                        <div v-for="(item,index) in orderList" :key="item.id" @click="goInfo(item)">
                             <OrderTemplate :itemData="item"></OrderTemplate>
                         </div>
                     </div>
@@ -39,8 +39,9 @@ export default {
     },
     data() {
         return {
+            showLoading: false,
+            activeName: '1',
             pageTile: '',
-            activeName: '',
             navList: [
                 {
                     id: '1',
@@ -57,10 +58,6 @@ export default {
                 {
                     id: '4',
                     value: '待收货'
-                },
-                {
-                    id: '5',
-                    value: '评价'
                 }
             ],
             orderList: [
@@ -99,6 +96,7 @@ export default {
     },
     mounted() {
         this.pageTile = this.$router.currentRoute.meta.name
+        this.activeName = this.$route.query.nav
     },
     methods: {
         onClickLeft() {
@@ -110,7 +108,49 @@ export default {
             this.$store.state.active = 0
             this.$router.push('/home')
         },
-        get() {}
+        get() {
+            let that = this
+            this.showLoading = true
+            this.orderList = []
+            setTimeout(function() {
+                that.showLoading = false
+                that.orderList = [
+                    {
+                        id: '001',
+                        status: 1, //1已完成 2待发货 3待收货 4待评价
+                        orderNum: '375161945907281',
+                        imgUrl: 'https://img.yzcdn.cn/vant/apple-1.jpg',
+                        title: '北欧简约立式台灯',
+                        amount: 2,
+                        price: 198,
+                        sku: [
+                            {name: '颜色', value: '黑色', id: 'black'},
+                            {name: '类型', value: '圆领', id: 'yl'},
+                            {name: '尺码', value: 'M165', id: '165'}
+                        ],
+                        relPrice: 150
+                    },
+                    {
+                        id: '002',
+                        status: 1, //1已完成 2待发货 3待收货 4待评价
+                        orderNum: '375161945907281',
+                        imgUrl: 'https://img.yzcdn.cn/vant/apple-1.jpg',
+                        title: '北欧简约立式台灯',
+                        amount: 2,
+                        price: 198,
+                        sku: [
+                            {name: '颜色', value: '黑色', id: 'black'},
+                            {name: '类型', value: '圆领', id: 'yl'},
+                            {name: '尺码', value: 'M165', id: '165'}
+                        ],
+                        relPrice: 150
+                    }
+                ]
+            }, 1000)
+        },
+        goInfo(e) {
+            this.$router.push({path: 'orderInfo', query: {id: e.id}})
+        }
     }
 }
 </script>
