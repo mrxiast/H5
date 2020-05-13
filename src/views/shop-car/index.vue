@@ -1,7 +1,11 @@
 <template>
     <div class="container">
         <div class="content" v-for="(item,index) in shopCarList" :key="item.id">
-            <carItem :goodsInfo="item" @fatherMethod="fatherMethod"></carItem>
+            <carItem
+                :goodsInfo="item"
+                @fatherMethod="fatherMethod"
+                @fatherMethodGoInfo="fatherMethodGoInfo"
+            ></carItem>
         </div>
         <div class="settlement">
             <div class="box">
@@ -129,6 +133,10 @@ export default {
                 }
             }
             console.log(this.subData, '900000098')
+        },
+        fatherMethodGoInfo(e) {
+            console.log(e, '001002')
+            this.$router.push({path: '/goodsDetail', query: {id: e.id}})
         }
     }
 }

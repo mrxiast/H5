@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-        <div class="item-box">
+        <div class="sel-box">
+            <van-checkbox
+                v-model="checked"
+                shape="square"
+                checked-color="#147658"
+                @click="onChange"
+            ></van-checkbox>
+        </div>
+        <div class="item-box" @click="goInfo">
             <div class="item-left">
                 <img :src="goodsInfo.imgUrl" alt />
-                <div class="sel-box">
-                    <van-checkbox
-                        v-model="checked"
-                        shape="square"
-                        checked-color="#147658"
-                        @click="onChange"
-                    ></van-checkbox>
-                </div>
             </div>
             <div class="item-right">
                 <div class="top">
@@ -25,7 +25,9 @@
                 <div class="bottom">
                     <div class="price">￥{{goodsInfo.price}}</div>
                     <div class="count">
-                        <van-stepper v-model="value" disable-input @change="onChange" />
+                        <div class="jian" @click.stop="jian_num">-</div>
+                        <div class="num_s">{{value}}</div>
+                        <div class="jia" @click.stop="jia_num">+</div>
                     </div>
                 </div>
             </div>
@@ -42,15 +44,32 @@ export default {
     },
     data() {
         return {
-            value: 0,
+            value: 1,
             checked: true
         }
     },
     mounted() {},
     methods: {
-        onChange(value) {
+        jian_num() {
+            if (this.value <= 1) {
+                this.$toast('最少一件')
+                return
+            } else {
+                this.value--
+                this.onChange()
+            }
+        },
+        jia_num() {
+            this.value += 1
+            this.onChange()
+        },
+        onChange() {
             // this.$parent.fatherMethod(this.goodsInfo.id, value, this.checked)
+            console.log('123')
             this.$emit('fatherMethod', this.goodsInfo, this.value, this.checked)
+        },
+        goInfo() {
+            this.$emit('fatherMethodGoInfo', this.goodsInfo)
         }
     },
     watch: {

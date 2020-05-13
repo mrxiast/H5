@@ -66,12 +66,12 @@
                         <van-icon name="location-o" style="line-height: inherit;" />
                     </template>
                 </van-cell>
-                <van-cell title="设置" is-link style="text-align:left;border-top:1px solid #ddd;">
-                    <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+                <!-- <van-cell title="设置" is-link style="text-align:left;border-top:1px solid #ddd;">
+               
                     <template #icon>
                         <van-icon name="setting-o" style="line-height: inherit;" />
                     </template>
-                </van-cell>
+                </van-cell>-->
                 <van-cell
                     title="退出"
                     style="text-align:left;border-top:1px solid #ddd;border-bottom:1px solid #ddd;"

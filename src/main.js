@@ -56,7 +56,8 @@ import {
   RadioGroup,
   Radio,
   Loading,
-  AddressEdit
+  AddressEdit,
+  Sku
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -96,6 +97,7 @@ Vue.use(Button)
   .use(Radio)
   .use(Loading)
   .use(AddressEdit)
+  .use(Sku)
 
 
 import "vant/lib/index.css";

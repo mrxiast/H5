@@ -11,7 +11,7 @@
                 <div class="red-text" v-if="itemData.status == 3">待收货</div>
                 <div class="red-text" v-if="itemData.status == 4">待评价</div>
             </div>
-            <div class="middle">
+            <div class="middle" @click="goInfo">
                 <GoodTemplate :goodData="itemData"></GoodTemplate>
             </div>
             <div class="bottom">
@@ -46,7 +46,12 @@ export default {
     data() {
         return {}
     },
-    mounted() {}
+    mounted() {},
+    methods: {
+        goInfo() {
+            this.$emit('fun', this.itemData)
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

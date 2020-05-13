@@ -1,10 +1,5 @@
 <template>
     <div class="box">
-        <van-nav-bar title="街区之家" @click-right="onClickRight">
-            <template #right>
-                <van-icon name="wap-home-o" size="20" />
-            </template>
-        </van-nav-bar>
         <div>
             <div class="banner">
                 <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -142,14 +137,6 @@ export default {
         getMoreCard() {
             console.log('123')
             this.$router.push({path: '/receiveCoupon', query: {id: this.goodId}})
-        },
-        onClickLeft() {
-            console.log('left')
-            window.history.back()
-        },
-        onClickRight() {
-            console.log('onClickRight')
-            this.$router.push('/home')
         }
     }
 }

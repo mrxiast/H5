@@ -22,8 +22,8 @@
                 <div class="content">
                     <van-loading v-if="showLoading" />
                     <div v-else>
-                        <div v-for="(item,index) in orderList" :key="item.id" @click="goInfo(item)">
-                            <OrderTemplate :itemData="item"></OrderTemplate>
+                        <div v-for="(item,index) in orderList" :key="item.id">
+                            <OrderTemplate :itemData="item" @fun="fatherMethod"></OrderTemplate>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ export default {
                 ]
             }, 1000)
         },
-        goInfo(e) {
+        fatherMethod(e) {
             this.$router.push({path: 'orderInfo', query: {id: e.id}})
         }
     }
