@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Coupon :list="couponInfo.cards"></Coupon>
+        <Coupon :quan="couponInfo"></Coupon>
     </div>
 </template>
 <script>
@@ -12,27 +12,27 @@ export default {
     data() {
         return {
             couponInfo: {
-                id: '333',
                 name: '1',
-                title: '未使用',
+                title: '待使用',
+                isUse: 4,
                 cards: [
                     {
                         denomination: '100',
                         introduce: '满1000减100',
                         limit: '仅限包包、外套使用',
-                        validity: '立即领券'
+                        validity: '永久使用'
                     },
                     {
                         denomination: '200',
                         introduce: '满1000减200',
                         limit: '仅限包包、外套使用',
-                        validity: '立即领券'
+                        validity: '永久使用1'
                     },
                     {
                         denomination: '300',
                         introduce: '满1000减300',
                         limit: '仅限包包、外套使用',
-                        validity: '立即领券'
+                        validity: '永久使用2'
                     }
                 ]
             }

@@ -23,11 +23,16 @@
             </div>
         </div>
         <div class="contents">
-            <div class="con-item">
+            <div class="con-item" @click="goInfo">
                 <GoodTemplate :goodData="goodData"></GoodTemplate>
             </div>
         </div>
         <div class="amount">
+            <div class="amount-num">
+                共
+                <span class="good-num">2</span>
+                件商品
+            </div>
             <div class="amount-txt">
                 <span class="txts">实付</span>
                 <span class="nums">￥199</span>
@@ -80,6 +85,9 @@ export default {
                     this.iconUrl = require('../../static/orders/dsh.png')
                     break
             }
+        },
+        goInfo() {
+            this.$router.push({path: '/goodsDetail', query: {id: this.goodData.id}})
         }
     }
 }

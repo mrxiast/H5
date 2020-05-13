@@ -14,17 +14,17 @@
             </div>
             <div class="right">
                 <div class="right-box">
-                    <div v-if="quan.isUse == 1">
-                        <div class="txt">立即</div>
-                        <div class="txt">使用</div>
+                    <div class="item-box" v-if="quan.isUse == 1">
+                        <img src="../../static/dsy.png" alt />
                     </div>
-                    <div v-if="quan.isUse == 2">
-                        <div class="txt">已经</div>
-                        <div class="txt">使用</div>
+                    <div class="item-box" v-if="quan.isUse == 2">
+                        <img src="../../static/ysy.png" alt />
                     </div>
-                    <div v-if="quan.isUse == 3">
-                        <div class="txt">已经</div>
-                        <div class="txt">过期</div>
+                    <div class="item-box" v-if="quan.isUse == 3">
+                        <img src="../../static/ygq.png" alt />
+                    </div>
+                    <div class="item-box" v-if="quan.isUse == 4">
+                        <img src="../../static/dlq.png" alt />
                     </div>
 
                     <div class="prict-con">{{item.validity}}</div>

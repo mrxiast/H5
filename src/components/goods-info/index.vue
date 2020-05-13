@@ -87,7 +87,7 @@
         />
         <div style="height:50px;"></div>
         <van-goods-action>
-            <van-goods-action-icon icon="chat-o" text="客服" @click="goCar" />
+            <van-goods-action-icon icon="chat-o" text="客服" />
             <van-goods-action-icon icon="cart-o" text="购物车" @click="goCar" />
             <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" />
             <van-goods-action-button type="danger" text="立即购买" @click="onClickButton" />
@@ -101,6 +101,7 @@ export default {
     components: {},
     data() {
         return {
+            goodId: '',
             showShare: false,
             banners: [
                 require('../../static/goodsInfo/zz.jpg'),
@@ -118,7 +119,8 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$route.query.id)
+        this.goodId = this.$route.query.id
+        // console.log(this.$route.query.id)
     },
     methods: {
         shares() {
@@ -130,7 +132,6 @@ export default {
         },
         goCar() {
             this.$router.push('/shopCar')
-            console.log('点击图标')
         },
         onClickButton() {
             console.log('点击按钮')
@@ -140,7 +141,7 @@ export default {
         },
         getMoreCard() {
             console.log('123')
-            this.$router.push('/receiveCoupon')
+            this.$router.push({path: '/receiveCoupon', query: {id: this.goodId}})
         },
         onClickLeft() {
             console.log('left')

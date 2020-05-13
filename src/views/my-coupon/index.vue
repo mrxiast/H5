@@ -27,26 +27,26 @@ export default {
             data: [
                 {
                     name: '1',
-                    title: '未使用',
+                    title: '待使用',
                     isUse: 1,
                     cards: [
                         {
                             denomination: '100',
                             introduce: '满1000减100',
                             limit: '仅限包包、外套使用',
-                            validity: '永久使用'
+                            validity: '2020/5/12过期'
                         },
                         {
                             denomination: '200',
                             introduce: '满1000减200',
                             limit: '仅限包包、外套使用',
-                            validity: '永久使用1'
+                            validity: '2020/5/12过期'
                         },
                         {
                             denomination: '300',
                             introduce: '满1000减300',
                             limit: '仅限包包、外套使用',
-                            validity: '永久使用2'
+                            validity: '2020/5/12过期'
                         }
                     ]
                 },
