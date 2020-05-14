@@ -17,7 +17,7 @@
             </form>
         </div>
         <div>
-            <Waterfall :url="url" :keyWord="keyWord"></Waterfall>
+            <Waterfall :url="url" :keyWord="keyWord" :itemType="itemType"></Waterfall>
         </div>
     </div>
 </template>>
@@ -31,6 +31,7 @@ export default {
     data() {
         return {
             //瀑布流插件专用数据
+            itemType: '',
             giveData: {
                 titleUrl: require('../../static/sy/giveyou.jpg')
             },

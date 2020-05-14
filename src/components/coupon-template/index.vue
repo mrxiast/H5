@@ -1,6 +1,6 @@
 <template>
     <div class="container_c">
-        <div class="box" v-for="(item,index) in quan.cards" :key="index">
+        <div class="box" v-for="(item,index) in quan.cards" :key="index" @click="getQuan(item)">
             <div :class="quan.isUse == 3 ? 'left black-color' : 'left'">
                 <div class="left-box">
                     <div :class="quan.isUse == 3 ? 'price-box black-color' : 'price-box'">
@@ -78,7 +78,12 @@ export default {
     mounted() {
         console.log(this.quan, '77777777')
     },
-    methods: {}
+    methods: {
+        getQuan(e) {
+            console.log('321')
+            this.$emit('fun', e)
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

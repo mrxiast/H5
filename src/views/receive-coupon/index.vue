@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Coupon :quan="couponInfo"></Coupon>
+        <Coupon :quan="couponInfo" @fun="fatherMethod"></Coupon>
     </div>
 </template>
 <script>
@@ -36,6 +36,13 @@ export default {
                     }
                 ]
             }
+        }
+    },
+    methods: {
+        fatherMethod(e) {
+            console.log(e, '123')
+            this.$toast.success('领取成功')
+            this.$router.back()
         }
     }
 }

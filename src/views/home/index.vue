@@ -4,11 +4,14 @@
             <img src="../../static/sy/sale.jpg" alt />
         </div>
         <Swip :images="images"></Swip>
-        <Nine :grids="grids"></Nine>
-        <div @click="getYhq">
+        <Nine :grids="grids" @fun="fatherMethod"></Nine>
+        <div @click.prevent="getYhq">
             <DisCount :discountImg="discountImg"></DisCount>
         </div>
-        <NewWeek :weekTtitle="weekTtitle"></NewWeek>
+        <div @click="goNewWeek">
+            <NewWeek :weekTtitle="weekTtitle" @goNewWeekItem="goNewWeekItem"></NewWeek>
+        </div>
+
         <div class="rare" @click="goRareInfo">
             <div class="rare-title">
                 <div class="rare-left">
@@ -47,33 +50,39 @@ export default {
             images: ['https://img.yzcdn.cn/vant/apple-1.jpg', 'https://img.yzcdn.cn/vant/apple-2.jpg'],
             grids: [
                 {
-                    url: '',
-                    txt: '衣服',
+                    url: '', //请求数据的url
+                    txt: '时尚衣装',
+                    itemType: '1',
                     icon: require('../../static/sy/yf.png')
                 },
                 {
                     url: '',
-                    txt: '包包',
+                    txt: '精美包包',
+                    itemType: '2',
                     icon: require('../../static/sy/bb.png')
                 },
                 {
                     url: '',
-                    txt: '鞋',
+                    txt: '轻松跑鞋',
+                    itemType: '3',
                     icon: require('../../static/sy/xz.png')
                 },
                 {
                     url: '',
-                    txt: '饰品',
+                    txt: '奢侈饰品',
+                    itemType: '4',
                     icon: require('../../static/sy/sp.png')
                 },
                 {
                     url: '',
-                    txt: '家具',
+                    txt: '仿古家具',
+                    itemType: '5',
                     icon: require('../../static/sy/jj.png')
                 },
                 {
                     url: '',
-                    txt: '文具',
+                    txt: '廉价文具',
+                    itemType: '6',
                     icon: require('../../static/sy/wj.png')
                 }
             ],
@@ -109,10 +118,21 @@ export default {
     },
     methods: {
         getYhq() {
+            this.$router.push('/receiveCoupon')
             console.log('331')
         },
         goRareInfo() {
             this.$router.push('/roatCostly')
+        },
+        fatherMethod(e) {
+            console.log(e, 'e')
+        },
+        goNewWeek() {
+            console.log('qu')
+        },
+        goNewWeekItem(e) {
+            console.log(e, 'eee')
+            this.$router.push({path: '/goodsDetail', query: {id: e.id}})
         }
     }
 }

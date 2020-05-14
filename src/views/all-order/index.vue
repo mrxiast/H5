@@ -1,12 +1,7 @@
 <template>
     <div class="container">
         <div>
-            <van-nav-bar
-                :title="pageTile"
-                left-arrow
-                @click-left="onClickLeft"
-                @click-right="onClickRight"
-            >
+            <van-nav-bar :title="pageTile" @click-right="onClickRight">
                 <template #right>
                     <van-icon name="wap-home-o" size="20" />
                 </template>

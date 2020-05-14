@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import {getListApi} from './api.js'
 export default {
     props: {
         url: {
@@ -74,6 +75,10 @@ export default {
         keyWord: {
             type: String,
             drfault: ''
+        },
+        itmeType: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -145,7 +150,12 @@ export default {
         },
         //数据请求
         getDataList() {
-            // loginApi(this.url)
+            let getInfo = {
+                url: this.url,
+                keyWord: this.keyWord,
+                itmeType: this.itmeType
+            }
+            // getListApi(this.url,)
             //     .then(res => {
             //         let list = res.data.data ? res.data.data : []
             //         if (list.length > 0) {
