@@ -8,7 +8,7 @@
             </van-nav-bar>
         </div>
         <div class="select-address">
-            <div class="select-box" v-if="!$store.state.nowAddress" @click="goAddress">
+            <div class="select-box" v-if="!recInfo.curAddress" @click="goAddress">
                 <div class="box">
                     <van-icon name="location-o" size="15" color="#147658" />
                     <span>选择地址</span>
@@ -19,10 +19,8 @@
                     <van-icon name="location-o" size="15" color="#147658" />
                 </div>
                 <div class="address-info">
-                    <div class="title">瓜娃子 15233334444</div>
-                    <div
-                        class="content"
-                    >{{$store.state.nowAddress.curAddress}} {{$store.state.nowAddress.curTit}}</div>
+                    <div class="title">{{recInfo.name}} {{recInfo.phone}}</div>
+                    <div class="content">{{recInfo.curAddress}} {{recInfo.curTit}}</div>
                 </div>
                 <div class="icon-small">
                     <van-icon name="arrow" />
@@ -67,7 +65,7 @@
                 <span class="count-title">合计</span>
                 <span class="count-num">￥{{countPrice}}</span>
             </div>
-            <van-button class="btn">提交订单</van-button>
+            <van-button class="btn" @click="submitOrder">提交订单</van-button>
         </div>
     </div>
 </template>
@@ -82,7 +80,14 @@ export default {
         return {
             canPick: true,
             countPrice: 0,
-            address: '',
+            recInfo: {
+                curAddress: '',
+                curTit: '',
+                name: '',
+                pahone: '',
+                r_lng: 0,
+                r_lat: 0
+            },
             pageTile: '',
             radio: '',
             goodList: [],
@@ -115,17 +120,57 @@ export default {
         }
     },
     mounted() {
+        this.getGoodList()
         this.pageTile = this.$router.currentRoute.meta.name
-        this.goodList = this.$store.state.shopcar
-        this.countPrice = 0
-        for (let i = 0; i < this.goodList.length; ++i) {
-            this.countPrice += this.goodList[i].amount * this.goodList[i].price
-        }
+
         if (this.countPrice >= 1000) {
             this.canPick = false
         }
+        if (this.$route.query.address) {
+            let data = JSON.parse(this.$route.query.address)
+            console.log(data, 'dataaaa')
+            this.recInfo = data
+            this.recInfo.name = '张三'
+            this.recInfo.phone = '13842744944'
+        } else {
+            this.getDefaultAddress()
+        }
     },
     methods: {
+        getDefaultAddress() {
+            this.recInfo = {
+                curAddress: '深圳市福田区农轩路33号',
+                curTit: '天御香山花园',
+                name: '张三',
+                pahone: '13842744944',
+                r_lng: 114.025871,
+                r_lat: 22.549706
+            }
+        },
+        getGoodList() {
+            this.goodList = [
+                {
+                    tags: '打折',
+                    title: '这是一只猫',
+                    id: 'item1',
+                    imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
+                    price: '198',
+                    amount: 1,
+                    sku: [
+                        {name: '颜色', value: '黑色', id: 'black'},
+                        {name: '类型', value: '圆领', id: 'yl'},
+                        {name: '尺码', value: 'M165', id: '165'}
+                    ]
+                }
+            ]
+            this.computedAcount()
+        },
+        computedAcount() {
+            this.countPrice = 0
+            for (let i = 0; i < this.goodList.length; ++i) {
+                this.countPrice += this.goodList[i].amount * this.goodList[i].price
+            }
+        },
         onClickLeft() {
             console.log('left')
             window.history.back()
@@ -146,6 +191,13 @@ export default {
                     this.countPrice = this.countPrice - parseInt(this.quan[i].denomination)
                 }
             }
+        },
+        submitOrder() {
+            this.$toast.success('提交成功，即将返回首页')
+            let that = this
+            setTimeout(function() {
+                that.$router.replace('/home')
+            }, 2000)
         }
     }
 }

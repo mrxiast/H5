@@ -45,6 +45,11 @@
                     <van-icon name="arrow" />
                 </div>
             </div>
+            <div class="selectItem" @click="selectSku">
+                <span>请选择：</span>
+                <span class="green">颜色、尺码</span>
+                <span style="margin-left:200px;font-weight:700;">···</span>
+            </div>
             <div class="goodInfo">
                 <div class="goodBox">
                     <div class="infoItem">
@@ -131,7 +136,10 @@ export default {
         //点击购买，调用父组件方法
         onClickButton() {
             this.$emit('fun')
-            console.log('点击按钮')
+        },
+        //选择sku
+        selectSku() {
+            this.$emit('select')
         },
         //点击加入购物车，调用父组件方法
         onAddCar() {

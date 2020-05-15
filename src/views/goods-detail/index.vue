@@ -5,14 +5,15 @@
                 <van-icon name="wap-home-o" size="20" />
             </template>
         </van-nav-bar>
-        <GoodsInfo @fun="fatherMethod" @onAddCar="onAddCar"></GoodsInfo>
+        <GoodsInfo @fun="fatherMethod" @onAddCar="onAddCar" @select="showSku"></GoodsInfo>
         <div>
             <van-sku
                 v-model="show"
                 :sku="sku"
+                :quota="sku.quota"
                 :goods="goods"
                 :hide-stock="sku.hide_stock"
-                :quota-used="quotaUsed"
+                :quota-used="sku.quotaUsed"
                 :custom-stepper-config="customStepperConfig"
                 @buy-clicked="onBuyClicked"
                 @add-cart="onAddCartClicked"
@@ -23,6 +24,7 @@
 
 <script>
 import GoodsInfo from '../../components/goods-info/index'
+import {Sku} from 'vant'
 export default {
     components: {
         GoodsInfo
@@ -30,7 +32,7 @@ export default {
     data() {
         return {
             show: false,
-            quotaUsed: 0,
+
             sku: {
                 // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
                 // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
@@ -231,7 +233,9 @@ export default {
                 stock_num: 227, // 商品总库存
                 collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
                 none_sku: false, // 是否无规格商品
-                hide_stock: false // 是否隐藏剩余库存
+                hide_stock: false, // 是否隐藏剩余库存
+                quotaUsed: 0,
+                quota: 10
             },
             goods: {
                 // 默认商品 sku 缩略图
@@ -247,7 +251,7 @@ export default {
                     if (action === 'minus') {
                         this.$toast(startSaleNum > 1 ? `${startSaleNum}件起售` : '至少选择一件商品')
                     } else if (action === 'plus') {
-                        // const { LIMIT_TYPE } = Sku.skuConstants;
+                        const {LIMIT_TYPE} = Sku.skuConstants
                         if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
                             let msg = `单次限购${quota}件`
                             if (quotaUsed > 0) msg += `，你已购买${quotaUsed}`
@@ -266,55 +270,14 @@ export default {
                 // stockNum: 1,
                 // // 格式化库存
                 // stockFormatter: stockNum => {}
-            },
-            skuData: {
-                // 商品 id
-                goodsId: '946755',
-                // 留言信息
-                messages: {
-                    message_0: '12',
-                    message_1: ''
-                },
-                // 另一种格式的留言，key 不同
-                cartMessages: {
-                    留言1: 'xxxx'
-                },
-                // 选择的商品数量
-                selectedNum: 1,
-                // 选择的 sku 组合
-                selectedSkuComb: {
-                    id: 2257,
-                    price: 100,
-                    s1: '30349',
-                    s2: '1193',
-                    s3: '0',
-                    stock_num: 111,
-                    properties: [
-                        {
-                            k_id: 123,
-                            k: '加料',
-                            is_multiple: true,
-                            v: [
-                                {
-                                    id: 1223,
-                                    name: '椰果',
-                                    price: 1
-                                }
-                            ]
-                        }
-                    ],
-                    property_price: 1
-                }
             }
         }
     },
-    mounted() {
-        console.log(this.$route.query.id, '321')
-        console.log(this.sku.tree, '001')
-    },
+    mounted() {},
     methods: {
-        onBuyClicked() {
-            console.log('goumai')
+        onBuyClicked(data) {
+            console.log(data, 'goumai')
+            this.$router.push('/subOrder')
         },
         onAddCartClicked() {
             console.log('gouwuche')
@@ -330,6 +293,9 @@ export default {
             this.show = true
         },
         onAddCar() {
+            this.show = true
+        },
+        showSku() {
             this.show = true
         }
     }

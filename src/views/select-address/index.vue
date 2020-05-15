@@ -22,8 +22,8 @@ export default {
         getMsgFormSon(data) {
             this.address = data
             this.$store.commit('SET_NOWADDRESS', this.address)
-            console.log(this.$store.state.nowAddress, '222')
-            this.$router.replace('/subOrder')
+            let addressData = JSON.stringify(data)
+            this.$router.replace({path: '/subOrder', query: {address: addressData}})
         }
     }
 }
