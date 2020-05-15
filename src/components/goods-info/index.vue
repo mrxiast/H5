@@ -84,7 +84,7 @@
         <van-goods-action>
             <van-goods-action-icon icon="chat-o" text="客服" />
             <van-goods-action-icon icon="cart-o" text="购物车" @click="goCar" />
-            <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" />
+            <van-goods-action-button type="warning" text="加入购物车" @click="onAddCar" />
             <van-goods-action-button type="danger" text="立即购买" @click="onClickButton" />
         </van-goods-action>
     </div>
@@ -128,8 +128,14 @@ export default {
         goCar() {
             this.$router.push('/shopCar')
         },
+        //点击购买，调用父组件方法
         onClickButton() {
+            this.$emit('fun')
             console.log('点击按钮')
+        },
+        //点击加入购物车，调用父组件方法
+        onAddCar() {
+            this.$emit('onAddCar')
         },
         lookImg(item) {
             ImagePreview([item])
