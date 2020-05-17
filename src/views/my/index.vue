@@ -4,9 +4,12 @@
             <div class="top">
                 <div class="top-box">
                     <div class="ava-info">
-                        <div class="ava"></div>
-                        <div class="login-status">未登录</div>
-                        <div class="getBtn">去授权</div>
+                        <div class="ava">
+                            <img v-if="userInfo.avaUrl" :src="userInfo.avaUrl" alt />
+                            <img v-else src="../../static/ava.jpg" alt />
+                        </div>
+                        <div class="login-status">{{userInfo.nickName ? userInfo.nickName:'未登录'}}</div>
+                        <div class="getBtn" v-if="userInfo.avaUrl">去授权</div>
                     </div>
                     <div class="bottom">
                         <div class="b-left" @click="goMycoupon">
@@ -66,12 +69,16 @@
                         <van-icon name="location-o" style="line-height: inherit;" />
                     </template>
                 </van-cell>
-                <!-- <van-cell title="设置" is-link style="text-align:left;border-top:1px solid #ddd;">
-               
+                <van-cell
+                    title="设置"
+                    is-link
+                    style="text-align:left;border-top:1px solid #ddd;"
+                    @click="setMy"
+                >
                     <template #icon>
                         <van-icon name="setting-o" style="line-height: inherit;" />
                     </template>
-                </van-cell>-->
+                </van-cell>
                 <van-cell
                     title="退出"
                     style="text-align:left;border-top:1px solid #ddd;border-bottom:1px solid #ddd;"
@@ -95,10 +102,26 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
     data() {
         return {
-            showExitModal: false
+            showExitModal: false,
+            userInfo: {
+                nickName: '',
+                avaUrl: '',
+                email: '',
+                phone: ''
+            }
+        }
+    },
+    mounted() {
+        const userInfo = JSON.parse(Cookies.get('userInfo'))
+        this.userInfo = {
+            nickName: userInfo.nickName,
+            avaUrl: userInfo.avaUrl,
+            email: userInfo.email,
+            phone: userInfo.phone
         }
     },
     methods: {
@@ -130,6 +153,9 @@ export default {
         },
         goWaitRec() {
             this.$router.push({path: '/allOrder', query: {nav: '4'}})
+        },
+        setMy() {
+            this.$router.push('/setMy')
         }
     }
 }

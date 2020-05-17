@@ -57,7 +57,8 @@ import {
   Radio,
   Loading,
   AddressEdit,
-  Sku
+  Sku,
+  Uploader
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -98,6 +99,7 @@ Vue.use(Button)
   .use(Loading)
   .use(AddressEdit)
   .use(Sku)
+  .use(Uploader)
 
 
 import "vant/lib/index.css";

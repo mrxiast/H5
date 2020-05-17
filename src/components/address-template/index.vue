@@ -23,7 +23,7 @@
                         <van-radio
                             color="red"
                             :name="addressInfo.id"
-                        >{{addressInfo.isDefault ? '默认':'设为默认' }}</van-radio>
+                        >{{addressInfo.isDefault==1 ? '默认':'设为默认' }}</van-radio>
                     </div>
                     <div class="bot-right">
                         <div class="bot-edit" @click="exitItem">
@@ -100,7 +100,6 @@ export default {
                 console.log('设置成功')
             } else {
                 this.$emit('delItem', this.addressInfo)
-                console.log('删除成功')
             }
             this.show = false
         },
@@ -109,9 +108,7 @@ export default {
         },
         setDefault() {
             this.type = 1
-            console.log('set')
-            this.modalTitle = '是否把当前地址设为默认'
-            this.show = true
+            this.$emit('setDefault', this.addressInfo)
         }
     }
 }

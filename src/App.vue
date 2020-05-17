@@ -19,6 +19,7 @@ export default {
             sessionStorage.setItem('store', JSON.stringify(this.$store.state))
         })
 
+        //开启小美女
         // setTimeout(() => {
         //     window.L2Dwidget.init({
         //         pluginRootPath: '../public/live2dw/',

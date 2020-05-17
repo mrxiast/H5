@@ -19,6 +19,14 @@ const state = {
 const DynamicRoutes = [
 
   {
+    path: "/setMy",
+    component: () => import("@/views/set-my/index.vue"),
+    name: "set-my",
+    meta: {
+      requiresAuth: true,
+      name: "设置",
+    }
+  }, {
     path: "/classify",
     component: () => import("@/views/classify/index.vue"),
     name: "classify",
@@ -187,8 +195,8 @@ const actions = {
   async FETCH_PERMISSION ({ commit, state }) {
     //模拟从后台拿到的路由
     // let permissionList = adminRoutes;
-    let permissionList = await fetchPermission()
-    let webRouter = permissionList.result
+    // let permissionList = await fetchPermission()
+    // let webRouter = permissionList.result
 
     //默认本地的路由  有404 403 注册等等
     let initialRoutes = router.options.routes;
@@ -207,8 +215,11 @@ const mutations = {
   //登出 清除token
   LOGIN_OUT (state) {
     Cookies.remove('token')
+    Cookies.remove('userInfo')
+    localStorage.clear()
     state.UserToken = "";
     state.permissionList = ''
+    state.active = 0;
   },
 
   //登录时设置 permission文件

@@ -3,7 +3,7 @@
         <div class="banner">
             <img src="../../static/sy/sale.jpg" alt />
         </div>
-        <Swip :images="images"></Swip>
+        <Swip :images="bannerList"></Swip>
         <Nine :grids="grids" @fun="fatherMethod"></Nine>
         <div @click.prevent="getYhq">
             <DisCount :discountImg="discountImg"></DisCount>
@@ -35,6 +35,7 @@ import NewWeek from '../../components/new-week/index'
 import Hot from '../../components/hot/index'
 import Dress from '../../components/dress/index'
 import GiveYou from '../../components/give-you/index'
+import {getBannerListApi} from './api.js'
 export default {
     components: {
         Swip,
@@ -47,7 +48,7 @@ export default {
     },
     data() {
         return {
-            images: ['https://img.yzcdn.cn/vant/apple-1.jpg', 'https://img.yzcdn.cn/vant/apple-2.jpg'],
+            bannerList: [],
             grids: [
                 {
                     url: '', //请求数据的url
@@ -115,8 +116,21 @@ export default {
     },
     mounted() {
         this.$store.commit('SET_ACTIVE', 0)
+        this.init()
     },
     methods: {
+        init() {
+            //获取banner轮播图
+            this.getBanner()
+        },
+        getBanner() {
+            getBannerListApi({type: 1}).then(res => {
+                if (res.code === 200) {
+                    console.log('45')
+                    this.bannerList = res.result
+                }
+            })
+        },
         getYhq() {
             this.$router.push('/receiveCoupon')
             console.log('331')

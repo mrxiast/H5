@@ -12,6 +12,7 @@
                 :sku="sku"
                 :quota="sku.quota"
                 :goods="goods"
+                :goodsId="sku.goodsId"
                 :hide-stock="sku.hide_stock"
                 :quota-used="sku.quotaUsed"
                 :custom-stepper-config="customStepperConfig"
@@ -34,6 +35,7 @@ export default {
             show: false,
 
             sku: {
+                goodsId: '10032',
                 // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
                 // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
                 tree: [
@@ -266,10 +268,6 @@ export default {
                     this.quotaUsed = currentValue
                     console.log(currentValue, 'currentValuecurrentValue')
                 }
-                // 库存
-                // stockNum: 1,
-                // // 格式化库存
-                // stockFormatter: stockNum => {}
             }
         }
     },
@@ -279,8 +277,8 @@ export default {
             console.log(data, 'goumai')
             this.$router.push('/subOrder')
         },
-        onAddCartClicked() {
-            console.log('gouwuche')
+        onAddCartClicked(data) {
+            console.log(data, 'gouwuche')
         },
         onClickRight() {
             console.log('onClickRight')
