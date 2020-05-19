@@ -35,7 +35,7 @@ import NewWeek from '../../components/new-week/index'
 import Hot from '../../components/hot/index'
 import Dress from '../../components/dress/index'
 import GiveYou from '../../components/give-you/index'
-import {getBannerListApi} from './api.js'
+import {getBannerListApi, getItemsApi} from './api.js'
 export default {
     components: {
         Swip,
@@ -50,42 +50,42 @@ export default {
         return {
             bannerList: [],
             grids: [
-                {
-                    url: '', //请求数据的url
-                    txt: '时尚衣装',
-                    itemType: '1',
-                    icon: require('../../static/sy/yf.png')
-                },
-                {
-                    url: '',
-                    txt: '精美包包',
-                    itemType: '2',
-                    icon: require('../../static/sy/bb.png')
-                },
-                {
-                    url: '',
-                    txt: '轻松跑鞋',
-                    itemType: '3',
-                    icon: require('../../static/sy/xz.png')
-                },
-                {
-                    url: '',
-                    txt: '奢侈饰品',
-                    itemType: '4',
-                    icon: require('../../static/sy/sp.png')
-                },
-                {
-                    url: '',
-                    txt: '仿古家具',
-                    itemType: '5',
-                    icon: require('../../static/sy/jj.png')
-                },
-                {
-                    url: '',
-                    txt: '廉价文具',
-                    itemType: '6',
-                    icon: require('../../static/sy/wj.png')
-                }
+                // {
+                //     url: '', //请求数据的url
+                //     txt: '时尚衣装',
+                //     itemType: '1',
+                //     icon: require('../../static/sy/yf.png')
+                // },
+                // {
+                //     url: '',
+                //     txt: '精美包包',
+                //     itemType: '2',
+                //     icon: require('../../static/sy/bb.png')
+                // },
+                // {
+                //     url: '',
+                //     txt: '轻松跑鞋',
+                //     itemType: '3',
+                //     icon: require('../../static/sy/xz.png')
+                // },
+                // {
+                //     url: '',
+                //     txt: '奢侈饰品',
+                //     itemType: '4',
+                //     icon: require('../../static/sy/sp.png')
+                // },
+                // {
+                //     url: '',
+                //     txt: '仿古家具',
+                //     itemType: '5',
+                //     icon: require('../../static/sy/jj.png')
+                // },
+                // {
+                //     url: '',
+                //     txt: '廉价文具',
+                //     itemType: '6',
+                //     icon: require('../../static/sy/wj.png')
+                // }
             ],
             discountImg: require('../../static/sy/yhq.jpg'),
             weekTtitle: require('../../static/sy/new-week-title.jpg'),
@@ -122,12 +122,23 @@ export default {
         init() {
             //获取banner轮播图
             this.getBanner()
+            this.getItems()
         },
+        //获取banner图列表
         getBanner() {
             getBannerListApi({type: 1}).then(res => {
                 if (res.code === 200) {
                     console.log('45')
                     this.bannerList = res.result
+                }
+            })
+        },
+        //获取分类列表
+        getItems() {
+            getItemsApi().then(res => {
+                if (res.code === 200) {
+                    this.grids = res.result
+                    console.log(this.grids)
                 }
             })
         },

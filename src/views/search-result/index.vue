@@ -17,7 +17,7 @@
             </form>
         </div>
         <div>
-            <Waterfall :url="url" :keyWord="keyWord" :itemType="itemType"></Waterfall>
+            <Waterfall :id="id" :url="url" :keyWord="keyWord" :itemType="itemType"></Waterfall>
         </div>
     </div>
 </template>>
@@ -52,7 +52,8 @@ export default {
                 '耐克断码清仓'
             ],
             historyWords: [],
-            showWater: false
+            showWater: false,
+            id: ''
         }
     },
     created() {

@@ -15,7 +15,7 @@
                 </div>
                 <div class="explain">instagram复古台灯，就在此刻回到过去，寻找逝去的记忆！</div>
             </div>-->
-            <Waterfall :url="url"></Waterfall>
+            <Waterfall :id="id" :url="url"></Waterfall>
         </div>
     </div>
 </template>
@@ -32,11 +32,15 @@ export default {
             type: Object,
             dafault: () => {},
             require: true
+        },
+        url: {
+            type: String,
+            default: ''
         }
     },
     data() {
         return {
-            url: '456'
+            id: '456'
         }
     },
     methods: {

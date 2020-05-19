@@ -1,5 +1,6 @@
 import { postRequest, getRequest, postRequests } from '@/axios/index'
 
-export const getListApi = (url, params) => {
-  return getRequest(url, params)
+
+export const getGoodsListApi = (params) => {
+  return getRequest('/v1/itemize/goodsList', params)
 }

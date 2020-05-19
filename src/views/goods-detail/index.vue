@@ -26,6 +26,7 @@
 <script>
 import GoodsInfo from '../../components/goods-info/index'
 import {Sku} from 'vant'
+
 export default {
     components: {
         GoodsInfo
@@ -271,8 +272,11 @@ export default {
             }
         }
     },
-    mounted() {},
+    mounted() {
+        this.init()
+    },
     methods: {
+        init() {},
         onBuyClicked(data) {
             console.log(data, 'goumai')
             this.$router.push('/subOrder')

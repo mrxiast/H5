@@ -42,8 +42,8 @@
                         :key="index"
                     >
                         <img
-                            class="data-cover"
-                            :src="item.cover"
+                            class="data-product_url"
+                            :src="item.product_url"
                             :style="{width: '100%', height: item.imgHeight + 'px'}"
                         />
                         <div class="data-name">
@@ -65,18 +65,18 @@
 </template>
 
 <script>
-import {getListApi} from './api.js'
+import {getGoodsListApi} from './api.js'
 export default {
     props: {
-        url: {
+        id: {
             type: String,
-            required: true
+            default: ''
         },
         keyWord: {
             type: String,
             drfault: ''
         },
-        itmeType: {
+        url: {
             type: String,
             default: ''
         }
@@ -151,70 +151,65 @@ export default {
         //数据请求
         getDataList() {
             let getInfo = {
-                url: this.url,
-                keyWord: this.keyWord,
-                itmeType: this.itmeType
+                id: this.id,
+                keyWord: this.keyWord
             }
-            // getListApi(this.url,)
-            //     .then(res => {
-            //         let list = res.data.data ? res.data.data : []
-            //         if (list.length > 0) {
-            //             //从list中取pageSize条数据出来
-            //             var tempList = []
-            //             for (let i = 0; i < this.pageSize; i++) {
-            //                 if (list.length > 0) {
-            //                     let tempIndex = parseInt(Math.random() * 1000) % list.length
-            //                     tempList.push(list[tempIndex])
-            //                     list.splice(tempIndex, 1)
-            //                 }
-            //             }
-            //             this.loadImagesHeight(tempList) //模拟预加载图片，获取图片高度
-            //         } else {
-            //             this.loadImagesHeight(list) //处理数据
-            //         }
-            //     })
-            //     .catch(res => {
-            //         console.log('..fail: ', res)
-            //         this.$toast.clear()
-            //         this.isLoading = false //下拉刷新请求完成
-            //         this.loading = false //上拉加载更多请求完成
-            //     })
+            getGoodsListApi({id: this.id})
+                .then(res => {
+                    let list = res.result.list ? res.result.list : []
+                    console.log(list, 'list')
+                    if (list.length > 0) {
+                        //从list中取pageSize条数据出来
+                        var tempList = []
+                        for (let i = 0; i < this.pageSize; i++) {
+                            if (list.length > 0) {
+                                let tempIndex = parseInt(Math.random() * 1000) % list.length
+                                tempList.push(list[tempIndex])
+                                list.splice(tempIndex, 1)
+                            }
+                        }
 
-            let list = [
-                {
-                    id: 1,
-                    cover: require('../../static/sy/hot-left.jpg'),
-                    sign: '哎呀呀',
-                    url: '',
-                    name: '北欧简约独立台灯',
-                    tags: ['ins', '复古流行'],
-                    newPrice: '123',
-                    price: '998',
-                    content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
-                },
-                {
-                    id: 2,
-                    cover: require('../../static/sy/test2.jpg'),
-                    sign: '哎呀呀',
-                    url: '',
-                    name: '北欧简约独立台灯',
-                    tags: ['ins', '复古流行'],
-                    newPrice: '123',
-                    price: '998',
-                    content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
-                },
-                {
-                    id: 3,
-                    cover: require('../../static/sy/test.jpg'),
-                    sign: '哎呀呀',
-                    url: '',
-                    name: '北欧简约独立台灯',
-                    tags: ['ins', '复古流行'],
-                    newPrice: '123',
-                    price: '998',
-                    content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
-                }
-            ]
+                        this.loadImagesHeight(tempList) //模拟预加载图片，获取图片高度
+                    } else {
+                        this.loadImagesHeight(list) //处理数据
+                    }
+                })
+                .catch(res => {
+                    console.log('..fail: ', res)
+                    this.$toast.clear()
+                    this.isLoading = false //下拉刷新请求完成
+                    this.loading = false //上拉加载更多请求完成
+                })
+
+            // let list = [
+            //     {
+            //         id: 1,
+            //         product_url: require('../../static/sy/hot-left.jpg'),
+            //         name: '北欧简约独立台灯',
+            //         tags: ['ins', '复古流行'],
+            //         newPrice: '123',
+            //         price: '998',
+            //         content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
+            //     },
+            //     {
+            //         id: 2,
+            //         product_url: require('../../static/sy/test2.jpg'),
+            //         name: '北欧简约独立台灯',
+            //         tags: ['ins', '复古流行'],
+            //         newPrice: '123',
+            //         price: '998',
+            //         content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
+            //     },
+            //     {
+            //         id: 3,
+            //         product_url: require('../../static/sy/test.jpg'),
+            //         name: '北欧简约独立台灯',
+            //         tags: ['ins', '复古流行'],
+            //         newPrice: '123',
+            //         price: '998',
+            //         content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
+            //     }
+            // ]
             if (list.length > 0) {
                 //从list中取pageSize条数据出来
                 var tempList = []
@@ -235,7 +230,7 @@ export default {
             list.forEach((item, index) => {
                 //创建图片对象，加载图片，计算图片高度
                 var img = new Image()
-                img.src = item.cover
+                img.src = item.product_url
                 img.onload = img.onerror = e => {
                     count++
                     if (e.type == 'load') {

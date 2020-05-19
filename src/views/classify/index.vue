@@ -8,12 +8,13 @@
             </van-nav-bar>
         </div>
         <div>
-            <myWaterfall :itemType="itemType" :url="url" :keyWord="keyWord"></myWaterfall>
+            <myWaterfall :id="id" :keyWord="keyWord"></myWaterfall>
         </div>
     </div>
 </template>
 <script>
 import myWaterfall from '../../components/my-waterfall/index'
+
 export default {
     components: {
         myWaterfall
@@ -24,13 +25,12 @@ export default {
             itemType: '',
             keyWord: '',
             pageTile: '',
-            url: ''
+            id: ''
         }
     },
     mounted() {
         this.pageTile = this.$route.query.name
-        this.url = this.$route.query.url
-        this.itemType = this.$route.query.itemType
+        this.id = this.$route.query.id
     },
     methods: {
         onClickRight() {
