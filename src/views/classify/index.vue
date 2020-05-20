@@ -31,6 +31,7 @@ export default {
     mounted() {
         this.pageTile = this.$route.query.name
         this.id = this.$route.query.id
+        console.log(this.id, '0000')
     },
     methods: {
         onClickRight() {

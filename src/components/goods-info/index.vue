@@ -4,11 +4,11 @@
             <div class="banner">
                 <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
                     <van-swipe-item
-                        v-for="(item,index) in banners"
+                        v-for="(item,index) in detailInfo.imgList"
                         :key="index"
                         @click="lookImg(item)"
                     >
-                        <img :src="item" alt />
+                        <img :src="item.url" alt />
                     </van-swipe-item>
                 </van-swipe>
             </div>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="showImgs">
-            <img v-for="(item,index) in banners" :key="index" :src="item" alt />
+            <img v-for="(item,index) in detailInfo.imgList" :key="index" :src="item.url" alt />
         </div>
         <van-share-sheet
             @select="onSelect"
@@ -99,16 +99,16 @@
 import {ImagePreview} from 'vant'
 export default {
     components: {},
+    props: {
+        detailInfo: {
+            type: Object,
+            default: () => {}
+        }
+    },
     data() {
         return {
             goodId: '',
             showShare: false,
-            banners: [
-                require('../../static/goodsInfo/zz.jpg'),
-                require('../../static/goodsInfo/zz.jpg'),
-                require('../../static/goodsInfo/zz.jpg'),
-                require('../../static/goodsInfo/zz.jpg')
-            ],
             options: [
                 {name: '微信', icon: 'wechat'},
                 {name: '微博', icon: 'weibo'},
@@ -127,7 +127,6 @@ export default {
             this.showShare = true
         },
         onSelect(option) {
-            console.log(option)
             this.showShare = false
         },
         goCar() {
@@ -146,10 +145,9 @@ export default {
             this.$emit('onAddCar')
         },
         lookImg(item) {
-            ImagePreview([item])
+            ImagePreview([item.url])
         },
         getMoreCard() {
-            console.log('123')
             this.$router.push({path: '/receiveCoupon', query: {id: this.goodId}})
         }
     }

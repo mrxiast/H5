@@ -40,7 +40,7 @@ export default {
     },
     data() {
         return {
-            id: '456'
+            id: ''
         }
     },
     methods: {

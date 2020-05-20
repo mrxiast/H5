@@ -5,7 +5,12 @@
                 <van-icon name="wap-home-o" size="20" />
             </template>
         </van-nav-bar>
-        <GoodsInfo @fun="fatherMethod" @onAddCar="onAddCar" @select="showSku"></GoodsInfo>
+        <GoodsInfo
+            :detailInfo="detailInfo"
+            @fun="fatherMethod"
+            @onAddCar="onAddCar"
+            @select="showSku"
+        ></GoodsInfo>
         <div>
             <van-sku
                 v-model="show"
@@ -26,7 +31,7 @@
 <script>
 import GoodsInfo from '../../components/goods-info/index'
 import {Sku} from 'vant'
-
+import {getGoodsIngoApi} from './api.js'
 export default {
     components: {
         GoodsInfo
@@ -269,14 +274,28 @@ export default {
                     this.quotaUsed = currentValue
                     console.log(currentValue, 'currentValuecurrentValue')
                 }
-            }
+            },
+            goodsId: '',
+            banners: [],
+            detailInfo: {}
         }
     },
     mounted() {
+        this.goodsId = this.$route.query.id
         this.init()
     },
     methods: {
-        init() {},
+        init() {
+            this.getInfo()
+        },
+        getInfo() {
+            getGoodsIngoApi({id: this.goodsId}).then(res => {
+                console.log(res, 'res')
+                if (res.code === 200) {
+                    this.detailInfo = res.result
+                }
+            })
+        },
         onBuyClicked(data) {
             console.log(data, 'goumai')
             this.$router.push('/subOrder')

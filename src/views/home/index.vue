@@ -49,44 +49,7 @@ export default {
     data() {
         return {
             bannerList: [],
-            grids: [
-                // {
-                //     url: '', //请求数据的url
-                //     txt: '时尚衣装',
-                //     itemType: '1',
-                //     icon: require('../../static/sy/yf.png')
-                // },
-                // {
-                //     url: '',
-                //     txt: '精美包包',
-                //     itemType: '2',
-                //     icon: require('../../static/sy/bb.png')
-                // },
-                // {
-                //     url: '',
-                //     txt: '轻松跑鞋',
-                //     itemType: '3',
-                //     icon: require('../../static/sy/xz.png')
-                // },
-                // {
-                //     url: '',
-                //     txt: '奢侈饰品',
-                //     itemType: '4',
-                //     icon: require('../../static/sy/sp.png')
-                // },
-                // {
-                //     url: '',
-                //     txt: '仿古家具',
-                //     itemType: '5',
-                //     icon: require('../../static/sy/jj.png')
-                // },
-                // {
-                //     url: '',
-                //     txt: '廉价文具',
-                //     itemType: '6',
-                //     icon: require('../../static/sy/wj.png')
-                // }
-            ],
+            grids: [],
             discountImg: require('../../static/sy/yhq.jpg'),
             weekTtitle: require('../../static/sy/new-week-title.jpg'),
             hotData: {

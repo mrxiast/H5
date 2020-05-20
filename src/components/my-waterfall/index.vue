@@ -98,8 +98,8 @@ export default {
             typeIndex: 0, //分类索引
             dataList: [], //列表数据
             haveData: 0, //是否有数据，1=无，2=有，0=页面还未初始化
-            pageIndex: 1, //页码
-            pageSize: 8, //每页加载数据数量
+            pageNum: 1, //页码
+            pageSize: 10, //每页加载数据数量
             isLoading: false, //下拉刷新进行中，请求开始true, 请求完成false，用于下拉刷新组件van-pull-refresh
             loading: false, //上拉加载更多中，上拉触底时自动变成true, 请求完成设置为false, 用于列表组件van-list
             finished: false, //上拉加载是否加载完最后一页数，用于组件van-list
@@ -119,9 +119,18 @@ export default {
         this.boxWidth = (screenWidth - this.boxMargin * 3) / 2 //每个item的宽度
         this.onRefresh() //刷新数据
     },
+    destroyed() {
+        this.dataList = []
+    },
+    watch: {
+        id: function(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                this.getDataList()
+            }
+        }
+    },
     methods: {
         openModalDe(e) {
-            console.log(e, 'e')
             this.$router.push('/goodsDetail?id=' + e.id)
         },
         changeType(index) {
@@ -137,7 +146,7 @@ export default {
         onRefresh() {
             //下拉刷新
             // if (this.isLoading) return; //还在请求中，返回
-            this.pageIndex = 1 //重置第一页
+            this.pageNum = 1 //重置第一页
             this.isLoading = true //开始加载
             this.finished = false //上拉加载"所有数据已经完成"标识 重置为false
             //接口请求
@@ -148,16 +157,20 @@ export default {
             if (this.finished) return //说明所有数据已经加载完毕，返回
             this.getDataList() //下一页数据请求中
         },
+
         //数据请求
         getDataList() {
+            let _this = this
+
             let getInfo = {
                 id: this.id,
-                keyWord: this.keyWord
+                keyWord: this.keyWord,
+                pageNum: this.pageNum,
+                pageSize: this.pageSize
             }
-            getGoodsListApi({id: this.id})
+            getGoodsListApi(getInfo)
                 .then(res => {
                     let list = res.result.list ? res.result.list : []
-                    console.log(list, 'list')
                     if (list.length > 0) {
                         //从list中取pageSize条数据出来
                         var tempList = []
@@ -210,20 +223,6 @@ export default {
             //         content: 'info为自定义的图片展示信息，请根据自己的情况自行填写'
             //     }
             // ]
-            if (list.length > 0) {
-                //从list中取pageSize条数据出来
-                var tempList = []
-                for (let i = 0; i < this.pageSize; i++) {
-                    if (list.length > 0) {
-                        let tempIndex = parseInt(Math.random() * 1000) % list.length
-                        tempList.push(list[tempIndex])
-                        list.splice(tempIndex, 1)
-                    }
-                }
-                this.loadImagesHeight(tempList) //模拟预加载图片，获取图片高度
-            } else {
-                this.loadImagesHeight(list) //处理数据
-            }
         },
         loadImagesHeight(list) {
             var count = 0 //用来计数，表示是否所有图片高度已经获取
@@ -253,13 +252,13 @@ export default {
         resolveDataList(list) {
             //处理数据
             //下拉刷新，清空原数据
-            if (this.pageIndex <= 1) {
+            if (this.pageNum <= 1) {
                 this.itemCount = 0
                 this.dataList = []
                 this.lastRowHeights = [0, 0] //存储每列的最后一行高度清0
             }
             if (list.length >= this.pageSize) {
-                this.pageIndex++ //还有下一页
+                this.pageNum++ //还有下一页
             } else {
                 this.finished = true //当前tab类型下所有数据已经加载完成
             }
