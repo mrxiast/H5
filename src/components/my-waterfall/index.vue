@@ -117,17 +117,14 @@ export default {
         //当前瀑布流设置为两列，计算瀑布流每个item和图片的宽度
         let screenWidth = document.body.offsetWidth //屏幕宽度
         this.boxWidth = (screenWidth - this.boxMargin * 3) / 2 //每个item的宽度
-        this.onRefresh() //刷新数据
+        let that = this
+        setTimeout(function() {
+            that.onRefresh()
+        }, 100)
+        //刷新数据
     },
     destroyed() {
         this.dataList = []
-    },
-    watch: {
-        id: function(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.getDataList()
-            }
-        }
     },
     methods: {
         openModalDe(e) {
