@@ -106,7 +106,6 @@ import "vant/lib/index.css";
 import "lib-flexible";
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
-
   if (!Cookies.get('token')) {
     if (
       to.matched.length > 0 &&
@@ -123,11 +122,10 @@ router.beforeEach((to, from, next) => {
         next({ path: to.path });
       });
     } else {
-      if (to.path !== "/login") {
-        next();
-      } else {
+      if (to.path === "/login") {
         next(from.fullPath);
       }
+      next()
     }
   }
 });

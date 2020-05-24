@@ -23,6 +23,7 @@
                 :custom-stepper-config="customStepperConfig"
                 @buy-clicked="onBuyClicked"
                 @add-cart="onAddCartClicked"
+                @sku-selected="code"
             />
         </div>
     </div>
@@ -31,7 +32,7 @@
 <script>
 import GoodsInfo from '../../components/goods-info/index'
 import {Sku} from 'vant'
-import {getGoodsIngoApi} from './api.js'
+import {getGoodsIngoApi, addCartApi} from './api.js'
 export default {
     components: {
         GoodsInfo
@@ -41,212 +42,22 @@ export default {
             show: false,
 
             sku: {
-                goodsId: '10032',
+                goodsId: '',
                 // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
                 // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
-                tree: [
-                    {
-                        k: '颜色', // skuKeyName：规格类目名称
-                        v: [
-                            {
-                                id: '10001', // skuValueId：规格值 id
-                                name: '红色', // skuValueName：规格值名称
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg', // 规格类目图片，只有第一个规格类目可以定义图片
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg' // 用于预览显示的规格类目图片
-                            },
-                            {
-                                id: '10002',
-                                name: '蓝色',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            },
-                            {
-                                id: '10003',
-                                name: '白色',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            },
-                            {
-                                id: '10004',
-                                name: '黑色',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            }
-                        ],
-                        k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                    },
-                    {
-                        k: '尺码', // skuKeyName：规格类目名称
-                        v: [
-                            {
-                                id: '20001', // skuValueId：规格值 id
-                                name: 'M码-适合100-120斤', // skuValueName：规格值名称
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg', // 规格类目图片，只有第一个规格类目可以定义图片
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg' // 用于预览显示的规格类目图片
-                            },
-                            {
-                                id: '20002',
-                                name: 'L码-适合120-140斤',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            },
-                            {
-                                id: '20003',
-                                name: 'XL码-适合140-160斤',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            },
-                            {
-                                id: '20004',
-                                name: 'XXL码-适合160-180斤',
-                                imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                                previewImgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-                            }
-                        ],
-                        k_s: 's2' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                    }
-                ],
+                tree: [],
                 // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-                list: [
-                    {
-                        id: 'goods-001', // skuId，下单时后端需要
-                        price: 100 * 100, // 价格（单位分）
-                        s1: '10001', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20001', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 589 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-002', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10001', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20002', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 364 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-003', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10001', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20003', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 59 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-004', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10001', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20004', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 39 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-001', // skuId，下单时后端需要
-                        price: 100 * 100, // 价格（单位分）
-                        s1: '10002', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20001', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 55 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-002', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10002', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20002', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 77 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-003', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10002', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20003', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 73 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-004', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10002', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20004', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 82 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-001', // skuId，下单时后端需要
-                        price: 100 * 100, // 价格（单位分）
-                        s1: '10003', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20001', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 98 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-002', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10003', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20002', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 187 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-003', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10003', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20003', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 196 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-004', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10003', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20004', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 17 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-001', // skuId，下单时后端需要
-                        price: 100 * 100, // 价格（单位分）
-                        s1: '10004', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20001', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 88 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-002', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10004', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20002', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 0 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-003', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10004', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20003', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 29 // 当前 sku 组合对应的库存
-                    },
-                    {
-                        id: 'goods-004', // skuId，下单时后端需要
-                        price: 105 * 100, // 价格（单位分）
-                        s1: '10004', // 规格类目 k_s 为 s1 的对应规格值 id
-                        s2: '20004', // 规格类目 k_s 为 s2 的对应规格值 id
-                        s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                        stock_num: 0 // 当前 sku 组合对应的库存
-                    }
-                ],
-                price: '100.00~999.99', // 默认价格（单位元）
-                stock_num: 227, // 商品总库存
-                collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+                list: [],
+                price: '', // 默认价格（单位元）
+                stock_num: 0, // 商品总库存
+                collection_id: '', // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
                 none_sku: false, // 是否无规格商品
                 hide_stock: false, // 是否隐藏剩余库存
                 quotaUsed: 0,
-                quota: 10
+                quota: 0
             },
+            // 默认商品 sku 缩略图
             goods: {
-                // 默认商品 sku 缩略图
                 picture: 'https://img.yzcdn.cn/vant/cat.jpeg'
             },
             customStepperConfig: {
@@ -277,14 +88,20 @@ export default {
             },
             goodsId: '',
             banners: [],
-            detailInfo: {}
+            detailInfo: {},
+            selectSkuKeyVal: {}
         }
     },
     mounted() {
-        this.goodsId = this.$route.query.id
+        this.goodsId = this.$route.params.id
+        console.log(this.goodsId, 'this.goodsId')
         this.init()
     },
     methods: {
+        code(e) {
+            console.log(e, 'ee')
+            this.selectSkuKeyVal = e.selectedSku
+        },
         init() {
             this.getInfo()
         },
@@ -293,15 +110,46 @@ export default {
                 console.log(res, 'res')
                 if (res.code === 200) {
                     this.detailInfo = res.result
+                    this.getSku()
                 }
             })
+        },
+        //格式话sku
+        getSku() {
+            this.sku.list = this.detailInfo.list
+            this.sku.tree = this.detailInfo.tree
+            this.sku.price = this.detailInfo.priceSection
+            this.sku.none_sku = false // 是否无规格商品
+            this.sku.hide_stock = false
+            this.sku.stock_num = this.detailInfo.amountStock
+            this.sku.quota = this.detailInfo.quota
+            this.sku.quotaUsed = 0
+            this.sku.collection_id = '22'
+            this.sku.goodsId = this.detailInfo.id
+            this.goods.picture = this.detailInfo.product_url
         },
         onBuyClicked(data) {
             console.log(data, 'goumai')
             this.$router.push('/subOrder')
         },
         onAddCartClicked(data) {
-            console.log(data, 'gouwuche')
+            let skuKeys = []
+            for (let keys in this.selectSkuKeyVal) {
+                skuKeys.push({
+                    [keys]: this.selectSkuKeyVal[keys]
+                })
+            }
+            let subData = {}
+            subData.payNum = data.selectedNum
+            subData.spuId = data.goodsId
+            subData.skuId = data.selectedSkuComb.id
+            subData.skuKeys = this.selectSkuKeyVal
+            addCartApi(subData).then(res => {
+                if (res.code === 200) {
+                    this.$toast.success('添加购物车成功')
+                    this.show = false
+                }
+            })
         },
         onClickRight() {
             console.log('onClickRight')
@@ -310,7 +158,6 @@ export default {
         },
         //
         fatherMethod() {
-            console.log(this.skuData, '770669')
             this.show = true
         },
         onAddCar() {

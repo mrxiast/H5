@@ -128,7 +128,7 @@ export default {
     },
     methods: {
         openModalDe(e) {
-            this.$router.push('/goodsDetail?id=' + e.id)
+            this.$router.push({name: 'goodsDetail', params: {id: e.id}})
         },
         changeType(index) {
             //切换类型

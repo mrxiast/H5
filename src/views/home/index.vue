@@ -120,7 +120,7 @@ export default {
         },
         goNewWeekItem(e) {
             console.log(e, 'eee')
-            this.$router.push({path: '/goodsDetail', query: {id: e.id}})
+            this.$router.push({name: 'goodsDetail', params: {id: e.id}})
         }
     }
 }

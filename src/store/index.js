@@ -116,7 +116,7 @@ const DynamicRoutes = [
       name: "搜索",
     }
   }, {
-    path: "/goodsDetail",
+    path: "/goodsDetail/:id",
     component: () => import("@/views/goods-detail/index.vue"),
     name: "goodsDetail",
     meta: {

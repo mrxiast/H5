@@ -8,15 +8,15 @@
                         :key="index"
                         @click="lookImg(item)"
                     >
-                        <img :src="item.url" alt />
+                        <img :src="item" alt />
                     </van-swipe-item>
                 </van-swipe>
             </div>
             <div class="title">
                 <div class="title_top">
                     <div class="title_top_left">
-                        <div class="goodsTitle">北欧风简约四角柜子原木深白色给你极致的生活体验</div>
-                        <div class="titleAdd">简约风格的街头感 潮流搭配</div>
+                        <div class="goodsTitle">{{detailInfo.name}}</div>
+                        <div class="titleAdd">{{detailInfo.content}}</div>
                     </div>
                     <div class="title_top_right">
                         <div class="shareBtn" @click="shares">
@@ -27,7 +27,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="price">￥699</div>
+                <div class="price">
+                    <span>
+                        ￥
+                        {{detailInfo.priceSection}}
+                    </span>
+                    <span class="line-price">
+                        ￥
+                        {{detailInfo.price}}起
+                    </span>
+                </div>
             </div>
             <div class="discount">
                 <div class="card">
@@ -54,29 +63,32 @@
                 <div class="goodBox">
                     <div class="infoItem">
                         <div class="infoTitle">品牌：</div>
-                        <div class="infoContent">YASAKO</div>
+                        <div
+                            class="infoContent"
+                            v-if="detailInfo.brandsInfo"
+                        >{{detailInfo.brandsInfo.name}}</div>
                     </div>
                     <div class="infoItem">
                         <div class="infoTitle">发货地：</div>
-                        <div class="infoContent">上海</div>
+                        <div class="infoContent">{{detailInfo.ship_address}}</div>
                     </div>
                     <div class="infoItem">
                         <div class="infoTitle">物流：</div>
-                        <div class="infoContent">顺丰、中通及圆通</div>
+                        <div class="infoContent">{{detailInfo.logistics}}</div>
                     </div>
                     <div class="infoItem">
                         <div class="infoTitle">发货时间：</div>
-                        <div class="infoContent">付款后48小时</div>
+                        <div class="infoContent">{{detailInfo.delivery_time}}</div>
                     </div>
                     <div class="infoItem">
                         <div class="infoTitle">售后：</div>
-                        <div class="infoContent">签收后24小时内联系克服</div>
+                        <div class="infoContent">{{detailInfo.after_sale}}</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="showImgs">
-            <img v-for="(item,index) in detailInfo.imgList" :key="index" :src="item.url" alt />
+            <img v-for="(item,index) in detailInfo.imgList" :key="index" :src="item" alt />
         </div>
         <van-share-sheet
             @select="onSelect"
@@ -120,7 +132,6 @@ export default {
     },
     mounted() {
         this.goodId = this.$route.query.id
-        // console.log(this.$route.query.id)
     },
     methods: {
         shares() {
@@ -145,7 +156,7 @@ export default {
             this.$emit('onAddCar')
         },
         lookImg(item) {
-            ImagePreview([item.url])
+            ImagePreview([item])
         },
         getMoreCard() {
             this.$router.push({path: '/receiveCoupon', query: {id: this.goodId}})
