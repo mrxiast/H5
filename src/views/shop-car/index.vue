@@ -1,12 +1,22 @@
 <template>
     <div class="container">
-        <div class="content" v-for="(item,index) in shopCarList" :key="item.id">
-            <carItem
-                :goodsInfo="item"
-                @fatherMethod="fatherMethod"
-                @fatherMethodGoInfo="fatherMethodGoInfo"
-            ></carItem>
-        </div>
+        <van-checkbox-group v-model="result" ref="checkboxGroup">
+            <div class="content" v-for="(item,index) in shopCarList" :key="item.id">
+                <div class="sel-box">
+                    <van-checkbox
+                        :name="item.id"
+                        shape="square"
+                        checked-color="#147658"
+                        @click="onChange"
+                    ></van-checkbox>
+                </div>
+                <carItem
+                    :goodsInfo="item"
+                    @fatherMethod="fatherMethod"
+                    @fatherMethodGoInfo="fatherMethodGoInfo"
+                ></carItem>
+            </div>
+        </van-checkbox-group>
         <div class="settlement">
             <div class="box">
                 <van-checkbox
@@ -34,58 +44,17 @@ export default {
     },
     data() {
         return {
+            result: [],
             allTrue: false, //如果子选项全部选了，全选按钮应该选上
             changeAllCheck: false, //是否全选
             totalPrice: 0, //共多少钱
             totalNum: 0, //共多少件
             subData: [],
-            shopCarList: [
-                {
-                    tags: '打折',
-                    title: '这是一只猫',
-                    id: 'item1',
-                    imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                    price: '198',
-                    amount: 1,
-                    sku: [
-                        {name: '颜色', value: '黑色', id: 'black'},
-                        {name: '类型', value: '圆领', id: 'yl'},
-                        {name: '尺码', value: 'M165', id: '165'}
-                    ]
-                },
-                {
-                    id: 'item2',
-                    tags: '优惠',
-                    title: '这是一只花猫',
-                    imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                    price: '198',
-                    amount: 1,
-                    sku: [
-                        {name: '颜色', value: '黄色', id: 'black'},
-                        {name: '类型', value: '鸡心领', id: 'yl'},
-                        {name: '尺码', value: 'M165', id: '165'}
-                    ]
-                },
-                {
-                    id: 'item3',
-                    tags: '',
-                    title: '这是一只很饿的猫',
-                    imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                    price: '198',
-                    amount: 1,
-                    sku: [
-                        {name: '颜色', value: '黄色', id: 'black'},
-                        {name: '类型', value: '无领', id: 'yl'},
-                        {name: '尺码', value: 'M165', id: '165'}
-                    ]
-                }
-            ]
+            shopCarList: [],
+            isAll: false
         }
     },
     mounted() {
-        for (let i = 0; i < this.shopCarList.length; ++i) {
-            this.$set(this.shopCarList[i], 'checked', false)
-        }
         this.init()
     },
     methods: {
@@ -97,30 +66,23 @@ export default {
                 }
             })
         },
-        fatherMethod(item, value, checked) {
-            this.totalPrice = 0
-            this.totalNum = 0
-            this.allTrue = true
-            this.subData = []
-            for (let i = 0; i < this.shopCarList.length; ++i) {
-                if (item.id === this.shopCarList[i].id) {
-                    this.shopCarList[i].amount = value
-                    this.shopCarList[i].checked = checked
-                }
-                if (this.shopCarList[i].checked) {
-                    this.totalPrice += this.shopCarList[i].amount * this.shopCarList[i].price
-                    this.totalNum += this.shopCarList[i].amount
-                    this.subData.push(this.shopCarList[i])
-                }
-                if (!this.shopCarList[i].checked) {
-                    this.allTrue = false
-                }
-            }
-            if (this.allTrue) {
+        onChange(e) {
+            if (this.result.length === this.shopCarList.length) {
                 this.changeAllCheck = true
+                this.isAll = true
             } else {
                 this.changeAllCheck = false
+                this.isAll = false
             }
+            this.computedPrice()
+        },
+        fatherMethod(item, value) {
+            for (let i = 0; i < this.shopCarList.length; i++) {
+                if (this.shopCarList[i].id == item.id) {
+                    this.shopCarList[i].payNum = value
+                }
+            }
+            this.computedPrice()
         },
         submit() {
             console.log(this.subData, '998')
@@ -128,25 +90,40 @@ export default {
             this.$router.push('/subOrder')
         },
         changAll() {
-            this.changeAllCheck = !!this.changeAllCheck
+            if (!this.isAll) {
+                this.$refs.checkboxGroup.toggleAll(true)
+            } else {
+                this.$refs.checkboxGroup.toggleAll()
+            }
+            this.isAll = !this.isAll
+
+            this.computedPrice()
+        },
+        computedPrice() {
             this.totalPrice = 0
             this.totalNum = 0
             this.subData = []
-            for (let i = 0; i < this.shopCarList.length; ++i) {
-                this.shopCarList[i].checked = this.changeAllCheck
-                if (this.shopCarList[i].checked) {
-                    this.totalPrice += this.shopCarList[i].amount * this.shopCarList[i].price
-                    this.totalNum += this.shopCarList[i].amount
+            if (this.isAll) {
+                for (let i = 0; i < this.shopCarList.length; ++i) {
+                    this.totalPrice += this.shopCarList[i].payNum * this.shopCarList[i].price
+                    this.totalNum += this.shopCarList[i].payNum
                     this.subData.push(this.shopCarList[i])
-                } else {
-                    this.subData = []
+                }
+            } else {
+                for (let i = 0; i < this.shopCarList.length; i++) {
+                    for (let j = 0; j < this.result.length; j++) {
+                        if (this.result[j] == this.shopCarList[i].id) {
+                            this.totalPrice += this.shopCarList[i].payNum * this.shopCarList[i].price
+                            this.totalNum += this.shopCarList[i].payNum
+                            this.subData.push(this.shopCarList[i])
+                        }
+                    }
                 }
             }
-            console.log(this.subData, '900000098')
         },
         fatherMethodGoInfo(e) {
             console.log(e, '001002')
-            this.$router.push({path: '/goodsDetail', query: {id: e.id}})
+            this.$router.push({name: 'goodsDetail', params: {id: e.parentId}})
         }
     }
 }
