@@ -27,6 +27,7 @@
 
 <script>
 import carItem from '../../components/car-item/index'
+import {getListoApi} from './api.js'
 export default {
     components: {
         carItem
@@ -85,8 +86,17 @@ export default {
         for (let i = 0; i < this.shopCarList.length; ++i) {
             this.$set(this.shopCarList[i], 'checked', false)
         }
+        this.init()
     },
     methods: {
+        init() {
+            getListoApi().then(res => {
+                if (res.code === 200) {
+                    console.log('123')
+                    this.shopCarList = res.result
+                }
+            })
+        },
         fatherMethod(item, value, checked) {
             this.totalPrice = 0
             this.totalNum = 0

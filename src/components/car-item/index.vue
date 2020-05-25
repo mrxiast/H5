@@ -15,7 +15,10 @@
             <div class="item-right">
                 <div class="top">
                     <div class="title">
-                        <span class="tags" v-if="goodsInfo.tags">{{goodsInfo.tags}}</span>
+                        <span
+                            class="tags"
+                            v-if="goodsInfo.tags"
+                        >{{goodsInfo.tags === 1 ? '优惠':'打折'}}</span>
                         {{goodsInfo.title}}
                     </div>
                     <div class="item-info">
@@ -26,7 +29,7 @@
                     <div class="price">￥{{goodsInfo.price}}</div>
                     <div class="count">
                         <div class="jian" @click.stop="jian_num">-</div>
-                        <div class="num_s">{{value}}</div>
+                        <div class="num_s">{{goodsInfo.payNum}}</div>
                         <div class="jia" @click.stop="jia_num">+</div>
                     </div>
                 </div>
