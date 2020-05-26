@@ -7,7 +7,7 @@
                     新增
                 </template>
             </van-nav-bar>
-            <div class="content">
+            <div class="content" v-if="addressList.length > 0">
                 <van-radio-group v-model="radio">
                     <div class="item" v-for="(item,index) in addressList" :key="item.id">
                         <AddressTemplate
@@ -18,6 +18,10 @@
                         ></AddressTemplate>
                     </div>
                 </van-radio-group>
+            </div>
+            <div v-else style="margin-top:40px;text-align:center;">
+                暂无地址哦O(∩_∩)O~
+                <br />点击右上角添加！
             </div>
         </div>
         <van-dialog
@@ -90,10 +94,12 @@ export default {
             getMyAddressApi({userId: userId}).then(res => {
                 if (res.code === 200) {
                     this.addressList = res.result
-                    if (this.addressList[0].isDefault == 1) {
-                        this.radio = this.addressList[0].id
-                    } else {
-                        this.radio = ''
+                    if (this.addressList.length > 0) {
+                        if (this.addressList[0].isDefault == 1) {
+                            this.radio = this.addressList[0].id
+                        } else {
+                            this.radio = ''
+                        }
                     }
                 }
             })

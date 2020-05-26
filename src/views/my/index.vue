@@ -6,7 +6,7 @@
                     <div class="ava-info">
                         <div class="ava">
                             <img v-if="userInfo.avaUrl" :src="userInfo.avaUrl" alt />
-                            <img v-else src="../../static/ava.jpg" alt />
+                            <img v-else src="http://service.lovetxt.xyz/upImgs/static/nztx.jpg" alt />
                         </div>
                         <div class="login-status">{{userInfo.nickName ? userInfo.nickName:'未登录'}}</div>
                         <div class="getBtn" v-if="userInfo.avaUrl">去授权</div>

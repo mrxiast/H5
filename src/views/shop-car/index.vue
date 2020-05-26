@@ -85,8 +85,12 @@ export default {
             this.computedPrice()
         },
         submit() {
-            console.log(this.subData, '998')
-            this.$store.commit('SET_SHOPCAR', this.subData)
+            console.log(this.totalPrice, this.subData, '00000')
+            let data = {
+                shopCar: this.subData,
+                allPrice: this.totalPrice
+            }
+            this.$store.commit('SET_SHOPCAR', data)
             this.$router.push('/subOrder')
         },
         changAll() {
@@ -122,7 +126,6 @@ export default {
             }
         },
         fatherMethodGoInfo(e) {
-            console.log(e, '001002')
             this.$router.push({name: 'goodsDetail', params: {id: e.parentId}})
         }
     }

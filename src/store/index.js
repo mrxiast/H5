@@ -12,7 +12,7 @@ const state = {
     localStorage.setItem("token", value);
   },
   active: 0,
-  shopcar: {},
+  shopCar: {},
   nowAddress: {}
 };
 /* 准备动态添加的路由 */
@@ -240,7 +240,7 @@ const mutations = {
   },
   //设置购物车结算信息
   SET_SHOPCAR (state, data) {
-    state.shopcar = data
+    state.shopCar = data
   },
   //设置当前订单的选择的地址
   SET_NOWADDRESS (state, data) {

@@ -8,7 +8,7 @@
             </van-nav-bar>
         </div>
         <div class="select-address">
-            <div class="select-box" v-if="!recInfo.curAddress" @click="goAddress">
+            <div class="select-box" v-if="!recInfo.province" @click="goAddress">
                 <div class="box">
                     <van-icon name="location-o" size="15" color="#147658" />
                     <span>选择地址</span>
@@ -19,8 +19,10 @@
                     <van-icon name="location-o" size="15" color="#147658" />
                 </div>
                 <div class="address-info">
-                    <div class="title">{{recInfo.name}} {{recInfo.phone}}</div>
-                    <div class="content">{{recInfo.curAddress}} {{recInfo.curTit}}</div>
+                    <div class="title">{{recInfo.name}} {{recInfo.tel}}</div>
+                    <div
+                        class="content"
+                    >{{recInfo.province}} {{recInfo.county}}{{recInfo.city}}{{recInfo.addressDetail}}</div>
                 </div>
                 <div class="icon-small">
                     <van-icon name="arrow" />
@@ -71,6 +73,7 @@
 </template>
 
 <script >
+import {getDelAddApi} from './api'
 import GoodTemplate from '../../components/goods-template/index'
 export default {
     components: {
@@ -78,6 +81,7 @@ export default {
     },
     data() {
         return {
+            storeData: {},
             canPick: true,
             countPrice: 0,
             recInfo: {
@@ -120,56 +124,27 @@ export default {
         }
     },
     mounted() {
-        this.getGoodList()
         this.pageTile = this.$router.currentRoute.meta.name
-
+        this.storeData = this.$store.state.shopCar
+        this.goodList = this.storeData.shopCar
+        this.countPrice = this.storeData.allPrice
         if (this.countPrice >= 1000) {
             this.canPick = false
         }
-        if (this.$route.query.address) {
-            let data = JSON.parse(this.$route.query.address)
-            console.log(data, 'dataaaa')
-            this.recInfo = data
-            this.recInfo.name = '张三'
-            this.recInfo.phone = '13842744944'
-        } else {
-            this.getDefaultAddress()
-        }
+        this.getDefaultAddress()
+    },
+    destroyed() {
+        this.$store.commit('SET_SHOPCAR', '')
     },
     methods: {
         getDefaultAddress() {
-            this.recInfo = {
-                curAddress: '深圳市福田区农轩路33号',
-                curTit: '天御香山花园',
-                name: '张三',
-                pahone: '13842744944',
-                r_lng: 114.025871,
-                r_lat: 22.549706
-            }
-        },
-        getGoodList() {
-            this.goodList = [
-                {
-                    tags: '打折',
-                    title: '这是一只猫',
-                    id: 'item1',
-                    imgUrl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-                    price: '198',
-                    amount: 1,
-                    sku: [
-                        {name: '颜色', value: '黑色', id: 'black'},
-                        {name: '类型', value: '圆领', id: 'yl'},
-                        {name: '尺码', value: 'M165', id: '165'}
-                    ]
+            getDelAddApi().then(res => {
+                if (res.code === 200) {
+                    this.recInfo = res.result
                 }
-            ]
-            this.computedAcount()
-        },
-        computedAcount() {
-            this.countPrice = 0
-            for (let i = 0; i < this.goodList.length; ++i) {
-                this.countPrice += this.goodList[i].amount * this.goodList[i].price
-            }
+            })
+            this.recInfo.r_lng = 114.025871
+            this.recInfo.r_lat = 114.025871
         },
         onClickLeft() {
             console.log('left')
@@ -187,13 +162,13 @@ export default {
             console.log(e, 'eee')
             for (let i = 0; i < this.quan.length; ++i) {
                 if (this.quan[i].id == e) {
-                    console.log(this.countPrice, this.quan[i].denomination, '990')
                     this.countPrice = this.countPrice - parseInt(this.quan[i].denomination)
                 }
             }
         },
         submitOrder() {
             this.$toast.success('提交成功，即将返回首页')
+            console.log()
             let that = this
             setTimeout(function() {
                 that.$router.replace('/home')
