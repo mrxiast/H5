@@ -94,7 +94,6 @@ export default {
     },
     mounted() {
         this.goodsId = this.$route.params.id
-        console.log(this.goodsId, 'this.goodsId')
         this.init()
     },
     methods: {
@@ -129,10 +128,30 @@ export default {
             this.goods.picture = this.detailInfo.product_url
         },
         onBuyClicked(data) {
-            console.log(data, 'goumai')
+            let subData = this.getSubData(data)
+            subData.name = this.detailInfo.name
+            subData.price = data.selectedSkuComb.price / 100
+            subData.imgUrl = this.goods.picture
+
+            let totalPrice = (data.selectedSkuComb.price * data.selectedNum) / 100
+            console.log(totalPrice, subData, '00000')
+            let endData = {
+                shopCar: [subData],
+                allPrice: totalPrice
+            }
+            this.$store.commit('SET_SHOPCAR', endData)
             this.$router.push('/subOrder')
         },
         onAddCartClicked(data) {
+            let subData = this.getSubData(data)
+            addCartApi(subData).then(res => {
+                if (res.code === 200) {
+                    this.$toast.success('添加购物车成功')
+                    this.show = false
+                }
+            })
+        },
+        getSubData(data) {
             let skuKeys = []
             for (let keys in this.selectSkuKeyVal) {
                 skuKeys.push({
@@ -144,12 +163,8 @@ export default {
             subData.spuId = data.goodsId
             subData.skuId = data.selectedSkuComb.id
             subData.skuKeys = this.selectSkuKeyVal
-            addCartApi(subData).then(res => {
-                if (res.code === 200) {
-                    this.$toast.success('添加购物车成功')
-                    this.show = false
-                }
-            })
+
+            return subData
         },
         onClickRight() {
             console.log('onClickRight')

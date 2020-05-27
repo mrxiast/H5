@@ -58,7 +58,8 @@ import {
   Loading,
   AddressEdit,
   Sku,
-  Uploader
+  Uploader,
+  SwipeCell
 } from "vant";
 Vue.use(Button)
   .use(Toast)
@@ -100,6 +101,7 @@ Vue.use(Button)
   .use(AddressEdit)
   .use(Sku)
   .use(Uploader)
+  .use(SwipeCell)
 
 
 import "vant/lib/index.css";

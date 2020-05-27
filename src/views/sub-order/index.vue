@@ -127,20 +127,27 @@ export default {
         this.pageTile = this.$router.currentRoute.meta.name
         this.storeData = this.$store.state.shopCar
         this.goodList = this.storeData.shopCar
+        console.log(this.storeData, '  this.storeData  this.storeData  this.storeData  this.storeData')
         this.countPrice = this.storeData.allPrice
         if (this.countPrice >= 1000) {
             this.canPick = false
         }
         this.getDefaultAddress()
     },
-    destroyed() {
-        this.$store.commit('SET_SHOPCAR', '')
-    },
+    // destroyed() {
+    //     this.$store.commit('SET_SHOPCAR', '')
+    // },
     methods: {
         getDefaultAddress() {
             getDelAddApi().then(res => {
                 if (res.code === 200) {
                     this.recInfo = res.result
+                    if (this.$route.query.address) {
+                        this.recInfo.province = JSON.parse(this.$route.query.address).curAddress
+                        this.recInfo.county = ''
+                        this.recInfo.city = ''
+                        this.recInfo.addressDetail = JSON.parse(this.$route.query.address).curTit
+                    }
                 }
             })
             this.recInfo.r_lng = 114.025871
@@ -159,7 +166,6 @@ export default {
             this.$router.push('/selectAddress')
         },
         changeRadio(e) {
-            console.log(e, 'eee')
             for (let i = 0; i < this.quan.length; ++i) {
                 if (this.quan[i].id == e) {
                     this.countPrice = this.countPrice - parseInt(this.quan[i].denomination)

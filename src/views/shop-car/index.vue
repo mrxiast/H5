@@ -1,25 +1,40 @@
 <template>
     <div class="container">
-        <van-checkbox-group v-model="result" ref="checkboxGroup">
+        <van-checkbox-group v-model="result" ref="checkboxGroup" v-if="shopCarList.length > 0">
             <div class="content" v-for="(item,index) in shopCarList" :key="item.id">
-                <div class="sel-box">
-                    <van-checkbox
-                        :name="item.id"
-                        shape="square"
-                        checked-color="#147658"
-                        @click="onChange"
-                    ></van-checkbox>
-                </div>
-                <carItem
-                    :goodsInfo="item"
-                    @fatherMethod="fatherMethod"
-                    @fatherMethodGoInfo="fatherMethodGoInfo"
-                ></carItem>
+                <van-swipe-cell>
+                    <div class="sel-box">
+                        <van-checkbox
+                            :name="item.id"
+                            shape="square"
+                            checked-color="#147658"
+                            @click="onChange"
+                        ></van-checkbox>
+                    </div>
+
+                    <carItem
+                        :goodsInfo="item"
+                        @fatherMethod="fatherMethod"
+                        @fatherMethodGoInfo="fatherMethodGoInfo"
+                    ></carItem>
+                    <template #right>
+                        <van-button
+                            style="height:100%;"
+                            square
+                            text="删除"
+                            type="danger"
+                            class="delete-button"
+                            @click="remove(item)"
+                        />
+                    </template>
+                </van-swipe-cell>
             </div>
         </van-checkbox-group>
+        <div v-else style="text-algin:center;margin-top:20px;">空空如也哦哦哦！！！</div>
         <div class="settlement">
             <div class="box">
                 <van-checkbox
+                    :disabled="shopCarList.length < 1"
                     v-model="changeAllCheck"
                     shape="square"
                     checked-color="#147658"
@@ -37,7 +52,8 @@
 
 <script>
 import carItem from '../../components/car-item/index'
-import {getListoApi} from './api.js'
+import {getListoApi, delApi} from './api.js'
+import {Dialog} from 'vant'
 export default {
     components: {
         carItem
@@ -85,7 +101,6 @@ export default {
             this.computedPrice()
         },
         submit() {
-            console.log(this.totalPrice, this.subData, '00000')
             let data = {
                 shopCar: this.subData,
                 allPrice: this.totalPrice
@@ -94,6 +109,7 @@ export default {
             this.$router.push('/subOrder')
         },
         changAll() {
+            if (this.shopCarList.length < 1) return
             if (!this.isAll) {
                 this.$refs.checkboxGroup.toggleAll(true)
             } else {
@@ -127,6 +143,24 @@ export default {
         },
         fatherMethodGoInfo(e) {
             this.$router.push({name: 'goodsDetail', params: {id: e.parentId}})
+        },
+        remove(e) {
+            console.log(e)
+            Dialog.confirm({
+                title: '确认删除当前商品'
+            })
+                .then(() => {
+                    // on confirm
+                    delApi({id: e.shopCarId}).then(res => {
+                        if (res.code === 200) {
+                            this.$toast.success('删除成功')
+                            this.init()
+                        }
+                    })
+                })
+                .catch(() => {
+                    // on cancel
+                })
         }
     }
 }

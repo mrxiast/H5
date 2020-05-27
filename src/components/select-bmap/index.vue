@@ -105,7 +105,9 @@ export default {
                 r_lng: this.r_lng,
                 r_lat: this.r_lat
             }
-            this.$emit('func', address)
+            console.log(address, '000')
+            // this.$emit('func', address)
+            this.$router.replace({path: '/subOrder', query: {address: JSON.stringify(address)}})
         },
         loadScript() {
             loadingMap('baidu', 'PHP7EQW84t75TQpliGLsiz8aZlQZushy').then(() => {
@@ -146,7 +148,6 @@ export default {
                 nowr_lat = 121.480539
                 nowr_lng = 31.235929
             }
-            console.log(nowr_lat, nowr_lng, '77700000')
             this.map.centerAndZoom(new BMap.Point(nowr_lat, nowr_lng), 18)
             this.map.addEventListener('dragend', () => {
                 // $(".pos-icon .obj").animate({
