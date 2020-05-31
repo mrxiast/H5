@@ -4,15 +4,20 @@
             <div class="top">
                 <div class="order-num">
                     订单编号
-                    <span class="num-txext">{{itemData.orderNum}}</span>
+                    <span class="num-txext">{{itemData.orderId}}</span>
                 </div>
                 <div class="red-text" v-if="itemData.status == 1">已完成</div>
                 <div class="red-text" v-if="itemData.status == 2">待发货</div>
                 <div class="red-text" v-if="itemData.status == 3">待收货</div>
                 <div class="red-text" v-if="itemData.status == 4">待评价</div>
             </div>
-            <div class="middle" @click="goInfo">
-                <GoodTemplate :goodData="itemData"></GoodTemplate>
+            <div
+                class="middle"
+                @click="goInfo"
+                v-for="(item,index) in itemData.orderInfo"
+                :key="item.id"
+            >
+                <GoodTemplate :goodData="item"></GoodTemplate>
             </div>
             <div class="bottom">
                 <div class="acount">共{{itemData.amount}}件商品</div>
@@ -22,11 +27,11 @@
                         <span>实付</span>
                     </div>
                     <div class="rea-price">
-                        <span class="num">￥{{itemData.relPrice}}</span>
+                        <span class="num">￥{{itemData.allPrice}}</span>
                     </div>
                 </div>
 
-                <div class="btn">再来一单</div>
+                <div class="btn" @click="again">再来一单</div>
             </div>
         </div>
     </div>
@@ -50,6 +55,9 @@ export default {
     methods: {
         goInfo() {
             this.$emit('fun', this.itemData)
+        },
+        again() {
+            this.$toast('未开发')
         }
     }
 }

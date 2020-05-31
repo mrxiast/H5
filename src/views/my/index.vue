@@ -143,16 +143,16 @@ export default {
             console.log('关于我们')
         },
         goAllOrder() {
-            this.$router.push({path: '/allOrder', query: {nav: '1'}})
+            this.$router.push({name: 'allOrder', params: {nav: '1'}})
         },
         goWaitPay() {
-            this.$router.push({path: '/allOrder', query: {nav: '2'}})
+            this.$router.push({name: 'allOrder', params: {nav: '2'}})
         },
         goWaitget() {
-            this.$router.push({path: '/allOrder', query: {nav: '3'}})
+            this.$router.push({name: 'allOrder', params: {nav: '3'}})
         },
         goWaitRec() {
-            this.$router.push({path: '/allOrder', query: {nav: '4'}})
+            this.$router.push({name: 'allOrder', params: {nav: '4'}})
         },
         setMy() {
             this.$router.push('/setMy')

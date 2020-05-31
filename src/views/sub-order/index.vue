@@ -73,7 +73,7 @@
 </template>
 
 <script >
-import {getDelAddApi} from './api'
+import {getDelAddApi, addOrderApi} from './api'
 import GoodTemplate from '../../components/goods-template/index'
 export default {
     components: {
@@ -127,7 +127,6 @@ export default {
         this.pageTile = this.$router.currentRoute.meta.name
         this.storeData = this.$store.state.shopCar
         this.goodList = this.storeData.shopCar
-        console.log(this.storeData, '  this.storeData  this.storeData  this.storeData  this.storeData')
         this.countPrice = this.storeData.allPrice
         if (this.countPrice >= 1000) {
             this.canPick = false
@@ -173,12 +172,21 @@ export default {
             }
         },
         submitOrder() {
-            this.$toast.success('提交成功，即将返回首页')
-            console.log()
+            console.log(this.recInfo, this.storeData)
+            let data = {
+                addressId: this.recInfo.id,
+                allPrice: this.storeData.allPrice,
+                orderInfo: this.storeData.shopCar
+            }
+            addOrderApi(data).then(res => {
+                if (res.code === 200) {
+                    this.$toast.success('提交成功，即将返回首页')
+                }
+            })
             let that = this
             setTimeout(function() {
                 that.$router.replace('/home')
-            }, 2000)
+            }, 1500)
         }
     }
 }

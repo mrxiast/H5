@@ -51,7 +51,7 @@ const DynamicRoutes = [
       name: "我的地址",
     }
   }, {
-    path: "/allOrder",
+    path: "/allOrder/:nav",
     component: () => import("@/views/all-order/index.vue"),
     name: "allOrder",
     meta: {
